@@ -127,7 +127,7 @@ export default function HomePage() {
           <div className="max-w-3xl">
             <Badge className="mb-4">Open to opportunities</Badge>
             <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-6">
-              hi, i&apos;m soban
+              <span className="fx-invert-reveal cursor-pointer">hi, i&apos;m soban</span>
             </h1>
             <p className="text-lg md:text-xl text-foreground/70 mb-8 leading-relaxed">
               Generative AI Engineer specialized in autonomous agents, RAG
@@ -167,7 +167,7 @@ export default function HomePage() {
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-2">
                     <skill.icon className="h-5 w-5" />
-                    <CardTitle className="text-base">{skill.category}</CardTitle>
+                    <CardTitle className="text-base fx-letter-slam cursor-pointer">{skill.category}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -197,7 +197,7 @@ export default function HomePage() {
                 <CardHeader>
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <CardTitle className="text-lg">{exp.role}</CardTitle>
+                      <CardTitle className="text-lg fx-letter-slam cursor-pointer">{exp.role}</CardTitle>
                       <p className="text-foreground/60 font-base mt-1">
                         {exp.company}
                       </p>
@@ -247,7 +247,7 @@ export default function HomePage() {
               >
                 <Card className="h-full">
                   <CardHeader>
-                    <CardTitle className="text-base flex items-center gap-2">
+                    <CardTitle className="text-base flex items-center gap-2 fx-letter-slam cursor-pointer">
                       {project.title}
                       <ExternalLink className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </CardTitle>
