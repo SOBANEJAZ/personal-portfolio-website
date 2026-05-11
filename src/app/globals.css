@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "highlight.js/styles/github-dark.css";
 
 @plugin "@tailwindcss/typography";
 
@@ -93,6 +94,7 @@
   --animate-press-in: press-in 0.25s ease forwards;
   --animate-rubber-band: rubber-band 0.5s ease forwards;
   --animate-wave-bounce: wave-bounce 0.4s ease forwards;
+  --animate-spin-slow: spin-slow 3s linear infinite;
 
   --spacing-container: 1300px;
 
@@ -152,6 +154,11 @@
     60% { transform: translateY(-4px); }
     80% { transform: translateY(-8px); }
     100% { transform: translateY(0); }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 }
 
@@ -231,6 +238,15 @@
   background-color: var(--main);
 }
 .fx-invert-reveal:hover::after {
+  transform: scaleX(1);
+}
+
+/* Trigger invert-reveal on hero group hover */
+.hero-group:hover .fx-invert-reveal {
+  color: var(--main-foreground);
+  background-color: var(--main);
+}
+.hero-group:hover .fx-invert-reveal::after {
   transform: scaleX(1);
 }
 
@@ -330,4 +346,152 @@ html.dark body::-webkit-scrollbar-thumb {
   .scrollbar {
     scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
+}
+
+/* Blog prose — neobrutalism-styled markdown content */
+.blog-prose {
+  font-family: var(--font-base), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--foreground);
+}
+
+.blog-prose > * + * {
+  margin-top: 1.5em;
+}
+
+.blog-prose h2 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 2.5em;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--border);
+}
+
+.blog-prose h3 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 2em;
+  margin-bottom: 0.4em;
+}
+
+.blog-prose p {
+  font-size: 1.05rem;
+}
+
+.blog-prose strong {
+  font-weight: 700;
+}
+
+.blog-prose a {
+  color: var(--main);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.blog-prose a:hover {
+  color: oklch(60% 0.2 25);
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  padding-left: 1.5em;
+  margin-top: 1em;
+}
+
+.blog-prose li {
+  margin-top: 0.4em;
+  font-size: 1.05rem;
+}
+
+.blog-prose li::marker {
+  color: var(--main);
+  font-weight: 700;
+}
+
+.blog-prose code {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  background: var(--page-background);
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: 0.15em 0.4em;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+.blog-prose pre {
+  background: #1e1e2e;
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: 1.25em;
+  overflow-x: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.blog-prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #cdd6f4;
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.blog-prose blockquote {
+  border-left: 4px solid var(--main);
+  padding: 0.75em 1.25em;
+  margin-top: 1.5em;
+  background: var(--page-background);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  box-shadow: 2px 2px 0 0 var(--border);
+  font-style: italic;
+  color: var(--foreground);
+}
+
+.blog-prose hr {
+  border: none;
+  border-top: 2px dashed var(--border);
+  margin: 2.5em 0;
+}
+
+.blog-prose img {
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  max-width: 100%;
+  height: auto;
+  margin: 1.5em 0;
+}
+
+.blog-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5em;
+  font-size: 0.95rem;
+}
+
+.blog-prose th {
+  background: var(--main);
+  color: var(--main-foreground);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.6em 1em;
+  border: 2px solid var(--border);
+}
+
+.blog-prose td {
+  padding: 0.6em 1em;
+  border: 2px solid var(--border);
+}
+
+.blog-prose tr:nth-child(even) {
+  background: var(--page-background);
 }

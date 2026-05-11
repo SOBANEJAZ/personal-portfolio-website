@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { getAllPosts } from "@/lib/blog";
 
-const siteUrl = "https://soban.dev";
+const siteUrl = "https://soban.tech";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -10,5 +11,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
   ];
 
-  return routes;
+  const posts = getAllPosts().map((post) => ({
+    url: `${siteUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...routes, ...posts];
 }
