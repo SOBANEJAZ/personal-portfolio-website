@@ -19,6 +19,7 @@ import {
   Zap,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
+import PageLoader from "@/components/page-loader";
 
 export const metadata: Metadata = {
   title: "Soban Ejaz — AI Engineer",
@@ -133,12 +134,13 @@ const projects = [
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero */}
+    <PageLoader>
+      <div className="flex flex-col">
+        {/* Hero */}
       <section>
         <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div className="max-w-3xl flex-1">
+            <div className="max-w-3xl flex-1 hero-group">
               <Badge className="mb-4">Open to opportunities</Badge>
               <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-6">
                 <span className="fx-invert-reveal cursor-pointer">hi, i&apos;m soban</span>
@@ -166,13 +168,13 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="hidden md:block shrink-0">
+            <div className="shrink-0">
               <img
                 src="/pic.png"
                 alt="Soban Ejaz — AI Engineer"
                 width={400}
                 height={400}
-                className="w-[350px] lg:w-[500px] h-auto"
+                className="w-[250px] sm:w-[280px] md:w-[350px] lg:w-[500px] h-auto"
               />
             </div>
           </div>
@@ -294,6 +296,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageLoader>
   );
 }
