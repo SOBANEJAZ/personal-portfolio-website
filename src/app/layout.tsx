@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, DM_Sans } from "next/font/google";
+import { Rubik, Nunito } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-const spaceGrotesk = Space_Grotesk({
+const rubik = Rubik({
   variable: "--font-heading",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-const dmSans = DM_Sans({
+const nunito = Nunito({
   variable: "--font-base",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${dmSans.variable} h-full`}
+      className={`${rubik.variable} ${nunito.variable} h-full`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Navbar />
