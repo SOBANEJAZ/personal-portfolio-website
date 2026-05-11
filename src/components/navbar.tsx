@@ -33,7 +33,7 @@ export function Navbar() {
           className="text-xl font-heading font-bold tracking-tight transition-all duration-300 ease-out"
           style={{ transform: scrolled ? "translateX(180px) scale(1.15)" : "translateX(0) scale(1)" }}
         >
-          soban.dev
+          soban.tech
         </Link>
 
         {/* Desktop */}

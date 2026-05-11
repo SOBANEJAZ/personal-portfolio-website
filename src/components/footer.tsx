@@ -7,7 +7,7 @@ export function Footer() {
     <footer style={{ backgroundColor: "#f7e6c6" }}>
       <div className="mx-auto max-w-container px-4 py-8 md:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
-          <p className="font-heading text-lg font-bold">soban.dev</p>
+          <p className="font-heading text-lg font-bold">soban.tech</p>
           <div className="flex items-center gap-3">
             <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
               <Button variant="noShadow" size="icon" className="min-h-[44px] min-w-[44px]">

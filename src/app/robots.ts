@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://soban.dev/sitemap.xml",
+    sitemap: "https://soban.tech/sitemap.xml",
   };
 }

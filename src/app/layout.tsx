@@ -16,7 +16,7 @@ const nunito = Nunito({
   weight: ["400", "500", "600", "700"],
 });
 
-const siteUrl = "https://soban.dev";
+const siteUrl = "https://soban.tech";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

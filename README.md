@@ -1,4 +1,4 @@
-# soban.dev
+# soban.tech
 
 Personal portfolio website built with Next.js and neobrutalism components.
 
