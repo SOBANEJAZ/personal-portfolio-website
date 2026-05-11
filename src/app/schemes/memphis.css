@@ -1,0 +1,38 @@
+/* Memphis-Inspired - Hot Pink Accent */
+:root {
+  --page-background: #FDF2F8;
+  --main: #EC4899;
+  --background: oklch(97% 0.01 340);
+  --secondary-background: oklch(100% 0 0);
+  --foreground: #1F2937;
+  --main-foreground: #fff;
+
+  --border: #000;
+  --ring: #000;
+  --overlay: oklch(0% 0 0 / 0.8);
+
+  --chart-1: #EC4899;
+  --chart-2: #06B6D4;
+  --chart-3: #F59E0B;
+  --chart-4: #8B5CF6;
+  --chart-5: #10B981;
+  --chart-active-dot: #000;
+}
+
+.dark {
+  --page-background: #1E1024;
+  --background: oklch(22% 0.04 340);
+  --secondary-background: oklch(18% 0 0);
+  --foreground: oklch(95% 0 0);
+  --main-foreground: #fff;
+
+  --border: #000;
+  --ring: #fff;
+
+  --chart-1: #F472B6;
+  --chart-2: #22D3EE;
+  --chart-3: #FCD34D;
+  --chart-4: #A78BFA;
+  --chart-5: #34D399;
+  --chart-active-dot: #fff;
+}

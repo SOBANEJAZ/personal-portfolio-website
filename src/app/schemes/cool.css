@@ -1,0 +1,38 @@
+/* Cool Modern - Sky Blue Accent */
+:root {
+  --page-background: #F0F9FF;
+  --main: #0284C7;
+  --background: oklch(97% 0.01 250);
+  --secondary-background: oklch(100% 0 0);
+  --foreground: #0F172A;
+  --main-foreground: #fff;
+
+  --border: #000;
+  --ring: #000;
+  --overlay: oklch(0% 0 0 / 0.8);
+
+  --chart-1: #0284C7;
+  --chart-2: #7C3AED;
+  --chart-3: #059669;
+  --chart-4: #D97706;
+  --chart-5: #E11D48;
+  --chart-active-dot: #000;
+}
+
+.dark {
+  --page-background: #0C1222;
+  --background: oklch(22% 0.03 250);
+  --secondary-background: oklch(18% 0 0);
+  --foreground: oklch(95% 0 0);
+  --main-foreground: #fff;
+
+  --border: #000;
+  --ring: #fff;
+
+  --chart-1: #38BDF8;
+  --chart-2: #A78BFA;
+  --chart-3: #34D399;
+  --chart-4: #FBBF24;
+  --chart-5: #FB7185;
+  --chart-active-dot: #fff;
+}
