@@ -84,6 +84,10 @@
 
   --animate-marquee: marquee 5s linear infinite;
   --animate-marquee2: marquee2 5s linear infinite;
+  --animate-jitter: jitter 0.3s ease-in-out infinite;
+  --animate-press-in: press-in 0.25s ease forwards;
+  --animate-rubber-band: rubber-band 0.5s ease forwards;
+  --animate-wave-bounce: wave-bounce 0.4s ease forwards;
 
   --spacing-container: 1300px;
 
@@ -103,6 +107,145 @@
     100% {
       transform: translateX(0%);
     }
+  }
+
+  @keyframes jitter {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-1px, -1px) rotate(-0.5deg); }
+    20% { transform: translate(1px, 0px) rotate(0.5deg); }
+    30% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+    40% { transform: translate(1px, -1px) rotate(0.5deg); }
+    50% { transform: translate(-1px, 0px) rotate(-0.5deg); }
+    60% { transform: translate(1px, 1px) rotate(0.5deg); }
+    70% { transform: translate(0px, -1px) rotate(-0.5deg); }
+    80% { transform: translate(-1px, 0px) rotate(0.5deg); }
+    90% { transform: translate(1px, 1px) rotate(-0.5deg); }
+  }
+
+  @keyframes press-in {
+    0% {
+      text-shadow: 2px 2px 0 #000, 4px 4px 0 #000, 6px 6px 0 #000;
+      transform: translate(0, 0);
+    }
+    100% {
+      text-shadow: 0px 0px 0 #000;
+      transform: translate(6px, 6px);
+    }
+  }
+
+  @keyframes rubber-band {
+    0% { transform: skewX(0deg) scaleX(1); }
+    30% { transform: skewX(-5deg) scaleX(1.05); }
+    50% { transform: skewX(3deg) scaleX(0.98); }
+    70% { transform: skewX(-2deg) scaleX(1.02); }
+    100% { transform: skewX(0deg) scaleX(1); }
+  }
+
+  @keyframes wave-bounce {
+    0% { transform: translateY(0); }
+    40% { transform: translateY(-12px); }
+    60% { transform: translateY(-4px); }
+    80% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+  }
+}
+
+/* Effect: Highlight Wipe */
+.fx-highlight-wipe {
+  background-image: linear-gradient(var(--main), var(--main));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  transition: background-size 0.35s ease, color 0.35s ease;
+}
+.fx-highlight-wipe:hover {
+  background-size: 100% 100%;
+  color: var(--main-foreground);
+}
+
+/* Effect: Strikethrough to Underline */
+.fx-strike-underline {
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+  text-decoration-color: var(--border);
+  transition: text-decoration 0.3s ease, text-underline-offset 0.3s ease;
+}
+.fx-strike-underline:hover {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 6px;
+}
+
+/* Effect: Letter Spacing Slam */
+.fx-letter-slam {
+  letter-spacing: 0.05em;
+  transition: letter-spacing 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+              transform 0.25s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.fx-letter-slam:hover {
+  letter-spacing: -0.03em;
+  transform: scale(1.08);
+}
+
+/* Effect: 3D Press In */
+.fx-press-in {
+  text-shadow: 2px 2px 0 #000, 4px 4px 0 #000, 6px 6px 0 #000;
+  transition: text-shadow 0.25s ease, transform 0.25s ease;
+}
+.fx-press-in:hover {
+  text-shadow: 0px 0px 0 #000;
+  transform: translate(6px, 6px);
+}
+
+/* Effect: Skew Rubber Band */
+.fx-rubber-band {
+  transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.fx-rubber-band:hover {
+  transform: skewX(-5deg) scaleX(1.05);
+}
+
+/* Effect: Color Invert + Border Reveal */
+.fx-invert-reveal {
+  position: relative;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 2px 6px;
+}
+.fx-invert-reveal::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 3px solid var(--border);
+  border-radius: var(--border-radius);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.fx-invert-reveal:hover {
+  color: var(--main-foreground);
+  background-color: var(--main);
+}
+.fx-invert-reveal:hover::after {
+  transform: scaleX(1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .fx-highlight-wipe,
+  .fx-strike-underline,
+  .fx-letter-slam,
+  .fx-press-in,
+  .fx-rubber-band,
+  .fx-invert-reveal {
+    transition: none;
+  }
+  .fx-highlight-wipe:hover,
+  .fx-strike-underline:hover,
+  .fx-letter-slam:hover,
+  .fx-press-in:hover,
+  .fx-rubber-band:hover,
+  .fx-invert-reveal:hover {
+    transform: none;
   }
 }
 
