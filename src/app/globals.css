@@ -33,6 +33,7 @@
   --chart-3: oklch(86.03% 0.176 92.36);
   --chart-4: oklch(79.76% 0.2044 153.08);
   --chart-5: oklch(66.34% 0.1806 277.2);
+  --grid-color: #e0d8cc;
   --chart-active-dot: #000;
 }
 
@@ -48,6 +49,8 @@
   --shadow: var(--box-shadow-x) var(--box-shadow-y) 0px 0px var(--border);
 
   --chart-active-dot: #fff;
+
+  --grid-color: rgba(255, 255, 255, 0.06);
 }
 
 @theme inline {
@@ -249,12 +252,23 @@
   .fx-invert-reveal:hover {
     transform: none;
   }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @layer base {
   body {
     @apply text-foreground font-base;
-    background: var(--page-background);
+    background-color: var(--page-background);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cline x1='0' y1='0' x2='48' y2='0' stroke='%23c8c0b4' stroke-width='1' stroke-dasharray='5 5'/%3E%3Cline x1='0' y1='0' x2='0' y2='48' stroke='%23c8c0b4' stroke-width='1' stroke-dasharray='5 5'/%3E%3C/svg%3E");
+    background-size: 48px 48px;
   }
 
   h1,
@@ -277,6 +291,12 @@ html.dark body,
 html.dark .scrollbar {
   --sb-track-color: #1f1f1f;
   --sb-thumb-color: #e6e6e6;
+}
+
+html.dark body {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cline x1='0' y1='0' x2='48' y2='0' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='5 5'/%3E%3Cline x1='0' y1='0' x2='0' y2='48' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='5 5'/%3E%3C/svg%3E");
+  background-size: 48px 48px;
 }
 
 .scrollbar::-webkit-scrollbar {

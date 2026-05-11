@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -7,6 +8,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Download, ExternalLink } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Resume",
+  description:
+    "Experience, technical skills, and education of Soban Ejaz — Generative AI Engineer specializing in autonomous agents and RAG systems.",
+  openGraph: {
+    title: "Resume — Soban Ejaz",
+    description:
+      "Experience, technical skills, and education of Soban Ejaz — Generative AI Engineer specializing in autonomous agents and RAG systems.",
+  },
+};
 
 const skills = {
   "AI & LLMs": ["OpenAI", "Groq", "Gemini", "Anthropic", "OpenClaw", "MCP"],

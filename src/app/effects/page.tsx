@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Card,
   CardContent,
@@ -11,6 +12,17 @@ import {
   WaveText,
   SplitRevealText,
 } from "@/components/text-effects";
+
+export const metadata: Metadata = {
+  title: "Hover Effects",
+  description:
+    "Interactive text hover effects showcase — CSS and JavaScript-powered animations for web interfaces.",
+  openGraph: {
+    title: "Hover Effects — Soban Ejaz",
+    description:
+      "Interactive text hover effects showcase — CSS and JavaScript-powered animations for web interfaces.",
+  },
+};
 
 const cssEffects = [
   {

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -6,6 +7,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Thoughts on AI engineering, agentic systems, RAG pipelines, and building things that actually work in production.",
+  openGraph: {
+    title: "Blog — Soban Ejaz",
+    description:
+      "Thoughts on AI engineering, agentic systems, RAG pipelines, and building things that actually work in production.",
+  },
+};
 
 const posts = [
   {
