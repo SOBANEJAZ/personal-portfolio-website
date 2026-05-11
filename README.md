@@ -1,14 +1,16 @@
 # soban.tech
 
-Personal portfolio website built with Next.js and neobrutalism components.
+Personal portfolio website built with Next.js and neobrutalism design.
 
 ## Stack
 
-- **Framework:** Next.js 16 (App Router)
-- **Styling:** Tailwind CSS v4 + [neobrutalism-components](https://github.com/ekmas/neobrutalism-components)
-- **UI:** shadcn/ui base components with neobrutalism theme
-- **Fonts:** Space Grotesk (headings), DM Sans (body)
+- **Framework:** Next.js 16 (App Router, Turbopack)
+- **Styling:** Tailwind CSS v4 + neobrutalism theme
+- **UI:** shadcn/ui base components with custom neobrutalism tokens
+- **Fonts:** Rubik (headings), Nunito (body), JetBrains Mono (code)
 - **Icons:** Lucide React + custom GitHub/LinkedIn SVGs
+- **Blog:** Markdown files in `content/blog/` with gray-matter + remark
+- **Contact:** EmailJS integration
 
 ## Getting Started
 
@@ -23,10 +25,37 @@ Open [http://localhost:3000](http://localhost:3000).
 
 | Route | Description |
 |-------|-------------|
-| `/` | Home — hero, skills, experience, projects |
-| `/blog` | Blog posts on AI engineering |
+| `/` | Hero, skills marquee, experience, projects, loading screen |
+| `/blog` | Blog index — reads from `content/blog/*.md` |
+| `/blog/[slug]` | Individual blog post with neobrutalism prose |
 | `/resume` | Resume with download button |
-| `/contact` | Contact form and social links |
+| `/contact` | Contact form (EmailJS) and social links |
+| `/effects` | Text hover effects demo |
+
+## Blog
+
+Blog posts are plain markdown files in `content/blog/` with YAML frontmatter:
+
+```yaml
+---
+title: "Post Title"
+date: "2026-03-15"
+excerpt: "Short description."
+tags: ["Tag1", "Tag2"]
+---
+```
+
+Drop an `.md` file in `content/blog/` and it appears on the site automatically.
+
+## Environment Variables
+
+Required for the contact form (EmailJS):
+
+```
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_xxxxxxx
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxx
+```
 
 ## Resume PDF
 

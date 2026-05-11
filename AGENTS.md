@@ -18,6 +18,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - **Components** — `src/components/ui/` holds neobrutalism-styled shadcn/ui components; `src/components/` has layout pieces (navbar, footer, icons)
 - **Styling** — neobrutalism theme in `src/app/globals.css` using Tailwind v4 `@theme inline` with CSS variables; do not mix in default shadcn theme tokens
 - **Icons** — GitHub and LinkedIn use custom SVGs in `src/components/icons.tsx` (lucide-react does not include brand icons)
+- **Blog** — markdown files in `content/blog/` parsed by `src/lib/blog.ts` (gray-matter + remark); dynamic route at `src/app/blog/[slug]/page.tsx`
+- **Contact** — EmailJS integration in `src/app/contact/page.tsx`; credentials hardcoded (service_7fbz55d / template_f3ja5xt)
+- **Loading** — `src/components/loading-screen.tsx` + `page-loader.tsx` wrap homepage content; blocks until critical images load
 
 ## Key Conventions
 
@@ -25,8 +28,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - Badges pop up on hover (`hover:-translate-y-1 hover:shadow-lg`) — the inverse of cards/buttons
 - Private data lives in `information/` which is gitignored — never commit it
 - Resume PDF goes in `public/Soban_Ejaz_Resume.pdf`
+- Hero name text uses `fx-invert-reveal` — triggers on `.hero-group` hover (parent div wraps heading + paragraph + buttons)
 
 ## Quirks
 
 - `@tailwindcss/typography` is installed as a dependency (not devDependency) — required by the `@plugin` directive in globals.css
 - Brand icons (GitHub, LinkedIn) are custom SVG components, not from lucide-react
+- `highlight.js/styles/github-dark.css` imported in globals.css for blog code block syntax highlighting
+- Domain is `soban.tech` — update in layout.tsx, sitemap.ts, robots.ts, navbar.tsx, footer.tsx if changed
