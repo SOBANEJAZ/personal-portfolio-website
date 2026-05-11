@@ -19,8 +19,9 @@
   --secondary-background: oklch(100% 0 0);
   --foreground: oklch(0% 0 0);
   --main-foreground: oklch(0% 0 0);
+  --page-background: #fff4e0;
 
-  --main: oklch(67.47% 0.1725 259.61);
+  --main: #F97316;
   --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
@@ -58,6 +59,7 @@
   --color-border: var(--border);
   --color-overlay: var(--overlay);
   --color-ring: var(--ring);
+  --color-page-background: var(--page-background);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -252,6 +254,7 @@
 @layer base {
   body {
     @apply text-foreground font-base;
+    background: var(--page-background);
   }
 
   h1,

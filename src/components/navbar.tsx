@@ -18,7 +18,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-background border-b-2 border-border">
+    <header className="sticky top-0 z-50 border-b-2 border-border" style={{ backgroundColor: "#f7e6c6" }}>
       <nav className="mx-auto max-w-container flex items-center justify-between px-4 py-3 md:px-6">
         <Link href="/" className="text-xl font-heading font-bold tracking-tight">
           soban.dev
@@ -59,7 +59,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t-2 border-border bg-background">
+        <div className="md:hidden border-t-2 border-border" style={{ backgroundColor: "#f7e6c6" }}>
           <ul className="flex flex-col p-4 gap-2">
             {links.map((link) => (
               <li key={link.href}>

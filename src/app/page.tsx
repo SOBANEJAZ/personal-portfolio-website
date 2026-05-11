@@ -122,14 +122,14 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="border-b-2 border-border bg-secondary-background">
+      <section className="border-b-2 border-border">
         <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
           <div className="max-w-3xl">
             <Badge className="mb-4">Open to opportunities</Badge>
             <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-6">
               <span className="fx-invert-reveal cursor-pointer">hi, i&apos;m soban</span>
             </h1>
-            <p className="text-lg md:text-xl text-foreground/70 mb-8 leading-relaxed">
+            <p className="text-lg md:text-xl mb-8 leading-relaxed opacity-80">
               Generative AI Engineer specialized in autonomous agents, RAG
               systems, and LLM orchestration. I build agents, RAG pipelines,
               and tools that do something real.
@@ -186,7 +186,7 @@ export default function HomePage() {
       </section>
 
       {/* Experience */}
-      <section className="border-b-2 border-border bg-secondary-background">
+      <section className="border-b-2 border-border">
         <div className="mx-auto max-w-container px-4 py-16 md:px-6">
           <h2 className="text-2xl md:text-3xl font-heading font-bold mb-8">
             experience
