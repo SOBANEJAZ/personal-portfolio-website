@@ -202,7 +202,7 @@ export default function HomePage() {
                 <CardContent>
                   <div className="flex flex-wrap gap-1.5">
                     {skill.items.map((item) => (
-                      <Badge key={item} variant="neutral" className="text-xs">
+                      <Badge key={item} variant="neutral" className="text-[14px]">
                         {item}
                       </Badge>
                     ))}
