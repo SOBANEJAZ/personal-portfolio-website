@@ -37,9 +37,10 @@ const education = {
 
 const experience = [
   {
-    role: "AI Engineer (Intern)",
+    role: "AI Engineer",
     company: "Spiral Lab, Lahore",
-    period: "Dec 2025 — Mar 2026",
+    link: "https://www.linkedin.com/company/spiral-lab1/about/",
+    period: "Dec 2025 — Apr 2026",
     bullets: [
       "Designed and optimized multi-agent systems using CrewAI, LangChain, and LlamaIndex, improving reliability of LLM-powered applications",
       "Built and deployed RAG pipelines and AI prototypes with Streamlit and Chainlit for production-ready workflows",
@@ -48,13 +49,15 @@ const experience = [
     ],
   },
   {
-    role: "AI Engineer (Intern)",
+    role: "AI Engineer",
     company: "Skill2Success, Lahore",
-    period: "Oct 2025 — Nov 2025",
+    link: "https://www.skill2success.com/",
+    period: "Sept 2025 — Dec 2025",
     bullets: [
       "Integrated Generative AI into core EdTech products to enhance student engagement and personalized learning",
       "Implemented a RAG pipeline to deliver personalized course recommendations to students at scale",
       "Collaborated with the technical lead to refine AI features around student engagement and learning outcomes",
+      "Pitched the GenAI-powered EdTech platform to the National Incubation Center, enabling curriculum-aligned learning through AI",
     ],
   },
 ];
@@ -158,7 +161,7 @@ export default function ResumePage() {
 
       {/* Skills */}
       <section className="mb-8">
-        <h2 className="text-xl md:text-2xl font-heading font-bold mb-4 pb-2 border-b-2 border-border">
+        <h2 className="text-[24px] md:text-[28px] font-heading font-bold mb-4 pb-2 border-b-2 border-border">
           Technical Skills
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -181,14 +184,14 @@ export default function ResumePage() {
 
       {/* Education */}
       <section className="mb-8">
-        <h2 className="text-xl md:text-2xl font-heading font-bold mb-4 pb-2 border-b-2 border-border">
+        <h2 className="text-[24px] md:text-[28px] font-heading font-bold mb-4 pb-2 border-b-2 border-border">
           Education
         </h2>
         <Card>
           <CardHeader>
             <div className="flex items-start justify-between gap-2">
               <div>
-                <CardTitle className="text-lg">{education.degree}</CardTitle>
+                <CardTitle className="text-[22px]">{education.degree}</CardTitle>
                 <p className="text-foreground/60 mt-1">{education.school}</p>
               </div>
               <Badge variant="neutral" className="shrink-0 text-xs">
@@ -207,7 +210,7 @@ export default function ResumePage() {
 
       {/* Experience */}
       <section className="mb-8">
-        <h2 className="text-xl md:text-2xl font-heading font-bold mb-4 pb-2 border-b-2 border-border">
+        <h2 className="text-[24px] md:text-[28px] font-heading font-bold mb-4 pb-2 border-b-2 border-border">
           Experience
         </h2>
         <div className="space-y-4">
@@ -216,10 +219,14 @@ export default function ResumePage() {
               <CardHeader>
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <CardTitle className="text-lg">{exp.role}</CardTitle>
-                    <p className="text-foreground/60 mt-1">{exp.company}</p>
+                    <CardTitle className="text-[22px]">{exp.role}</CardTitle>
+                    <a href={exp.link} target="_blank" rel="noopener noreferrer">
+                      <Button variant="noShadow" size="sm" className="text-base mt-1">
+                        {exp.company} <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    </a>
                   </div>
-                  <Badge variant="neutral" className="shrink-0 text-xs">
+                  <Badge variant="neutral" className="shrink-0 text-[16px]">
                     {exp.period}
                   </Badge>
                 </div>
@@ -227,7 +234,7 @@ export default function ResumePage() {
               <CardContent>
                 <ul className="space-y-2">
                   {exp.bullets.map((bullet, i) => (
-                    <li key={i} className="text-sm text-foreground/70 flex gap-2">
+                    <li key={i} className="text-[16px] text-foreground/70 flex gap-2">
                       <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-main" />
                       {bullet}
                     </li>
@@ -241,7 +248,7 @@ export default function ResumePage() {
 
       {/* Projects */}
       <section>
-        <h2 className="text-xl md:text-2xl font-heading font-bold mb-4 pb-2 border-b-2 border-border">
+        <h2 className="text-[24px] md:text-[28px] font-heading font-bold mb-4 pb-2 border-b-2 border-border">
           Key Projects
         </h2>
         <div className="space-y-4">
@@ -255,7 +262,7 @@ export default function ResumePage() {
             >
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
+                  <CardTitle className="text-[22px] flex items-center gap-2">
                     {project.title}
                     <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </CardTitle>
@@ -264,7 +271,7 @@ export default function ResumePage() {
                 <CardContent>
                   <ul className="space-y-2">
                     {project.bullets.map((bullet, i) => (
-                      <li key={i} className="text-sm text-foreground/70 flex gap-2">
+                      <li key={i} className="text-[16px] text-foreground/70 flex gap-2">
                         <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-main" />
                         {bullet}
                       </li>
