@@ -1,0 +1,16 @@
+.card {
+  --card-background: color-mix(
+    in srgb,
+    var(--secondary-background),
+    var(--surface-terracotta) var(--resume-tone-start)
+  );
+  background-image: linear-gradient(
+    to bottom,
+    var(--card-background),
+    color-mix(
+      in srgb,
+      var(--secondary-background),
+      var(--surface-terracotta) var(--resume-tone-end)
+    )
+  );
+}

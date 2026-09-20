@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -8,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Download, ExternalLink } from "lucide-react";
+import styles from "./resume.module.css";
 
 export const metadata: Metadata = {
   title: "Resume",
@@ -112,6 +114,15 @@ const projects = [
   },
 ];
 
+// Continue the same light-to-apricot progression across all resume sections.
+function cardTone(index: number): CSSProperties {
+  const count = 2 + experience.length + projects.length;
+  return {
+    "--resume-tone-start": `${(index / count) * 100}%`,
+    "--resume-tone-end": `${((index + 1) / count) * 100}%`,
+  } as CSSProperties;
+}
+
 export default function ResumePage() {
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6">
@@ -149,7 +160,7 @@ export default function ResumePage() {
       </div>
 
       {/* Summary */}
-      <Card className="mb-8">
+      <Card className={`${styles.card} mb-8`} style={cardTone(0)}>
         <CardContent className="pt-6">
           <p className="text-foreground/80 leading-relaxed">
             Generative AI Engineer specialized in autonomous agents, RAG
@@ -188,7 +199,7 @@ export default function ResumePage() {
         <h2 className="text-[24px] md:text-[28px] font-heading font-bold mb-4 pb-2 border-b-2 border-border">
           Education
         </h2>
-        <Card>
+        <Card className={styles.card} style={cardTone(1)}>
           <CardHeader>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
@@ -215,8 +226,8 @@ export default function ResumePage() {
           Experience
         </h2>
         <div className="space-y-4">
-          {experience.map((exp) => (
-            <Card key={exp.company}>
+          {experience.map((exp, index) => (
+            <Card key={exp.company} className={styles.card} style={cardTone(2 + index)}>
               <CardHeader>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
@@ -253,7 +264,7 @@ export default function ResumePage() {
           Key Projects
         </h2>
         <div className="space-y-4">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <a
               key={project.title}
               href={project.link}
@@ -261,13 +272,13 @@ export default function ResumePage() {
               rel="noopener noreferrer"
               className="group block"
             >
-              <Card>
+              <Card className={styles.card} style={cardTone(2 + experience.length + index)}>
                 <CardHeader>
                   <CardTitle className="text-[22px] flex items-center gap-2">
                     {project.title}
                     <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </CardTitle>
-                  <p className="text-sm text-foreground/50">{project.tech}</p>
+                  <p className="text-sm text-foreground/70">{project.tech}</p>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
