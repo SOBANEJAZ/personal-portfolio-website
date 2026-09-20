@@ -12,6 +12,7 @@ import {
 import {
   ArrowRight,
   ArrowUpRight,
+  Asterisk,
   Bot,
   Brain,
   Code2,
@@ -208,7 +209,13 @@ export default function HomePage() {
 
       <div className="border-b-2 border-border bg-main">
         <div className="mx-auto flex max-w-container flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 font-mono text-xs font-bold uppercase tracking-wider md:justify-between md:text-sm">
-          <span>Autonomous agents</span><span aria-hidden="true">✳</span><span>RAG systems</span><span aria-hidden="true">✳</span><span>LLM orchestration</span><span aria-hidden="true" className="hidden sm:inline">✳</span><span>Production-minded</span>
+          <span>Autonomous agents</span>
+          <Asterisk aria-hidden="true" className="size-4 shrink-0 text-link" />
+          <span>RAG systems</span>
+          <Asterisk aria-hidden="true" className="size-4 shrink-0 text-link" />
+          <span>LLM orchestration</span>
+          <Asterisk aria-hidden="true" className="hidden size-4 shrink-0 text-link sm:block" />
+          <span>Production-minded</span>
         </div>
       </div>
 
