@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 const GRID = 48;
 const RADIUS = 190;
 const LIFETIME = 1100;
+const MAX_DISPLACEMENT = 6;
 
 type Wave = { x: number; y: number; started: number };
 
@@ -73,8 +74,8 @@ export function BackgroundRipple({ contained = false }: { contained?: boolean })
 
         if (strength > 0) {
           const glow = ctx.createRadialGradient(cursorX, cursorY, 0, cursorX, cursorY, RADIUS);
-          glow.addColorStop(0, `rgba(255,255,255,${0.3 * strength})`);
-          glow.addColorStop(0.5, `rgba(255,255,255,${0.13 * strength})`);
+          glow.addColorStop(0, `rgba(255,255,255,${0.15 * strength})`);
+          glow.addColorStop(0.5, `rgba(255,255,255,${0.065 * strength})`);
           glow.addColorStop(1, "rgba(255,255,255,0)");
           ctx.fillStyle = glow;
           ctx.fillRect(0, top, width, bottom - top);
@@ -97,7 +98,7 @@ export function BackgroundRipple({ contained = false }: { contained?: boolean })
             const crest = distance - wave.progress * RADIUS;
             const envelope = Math.exp(-((crest / 42) ** 2));
             const edge = (1 - distance / RADIUS) ** 2;
-            const displacement = Math.sin(crest / 13) * envelope * edge * (1 - wave.progress) * 12;
+            const displacement = Math.sin(crest / 13) * envelope * edge * (1 - wave.progress) * MAX_DISPLACEMENT;
             shiftX += (dx / distance) * displacement;
             shiftY += (dy / distance) * displacement;
           }
