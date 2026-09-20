@@ -342,7 +342,7 @@ export default function HomePage() {
         <div className="flex flex-col items-start justify-between gap-8 rounded-base border-2 border-border bg-main p-7 shadow-shadow md:flex-row md:items-center md:p-12">
           <div>
             <p className="section-kicker">Have something in mind?</p>
-            <h2 className="max-w-xl text-3xl font-bold tracking-tight md:text-4xl">Let&apos;s build something useful.</h2>
+            <h2 className="max-w-xl text-3xl font-bold tracking-tight md:text-4xl">Let&apos;s build something crazyy!</h2>
           </div>
           <Button asChild variant="reverse" size="lg"><Link href="/contact">Get in touch <ArrowUpRight /></Link></Button>
         </div>
