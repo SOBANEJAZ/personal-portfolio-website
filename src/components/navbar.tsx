@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ExternalLink } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -16,62 +16,50 @@ const links = [
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  const onScroll = useCallback(() => setScrolled(window.scrollY > 50), []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [onScroll]);
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-border" style={{ backgroundColor: "#f7e6c6" }}>
-      <nav className="mx-auto max-w-container flex items-center justify-between px-4 py-3 md:px-6">
+    <header className="sticky top-0 z-50 border-b-2 border-border bg-secondary-background">
+      <nav aria-label="Main navigation" className="mx-auto max-w-container flex items-center justify-between gap-6 px-5 py-4 md:px-8">
         <Link
           href="/"
-          className="text-xl font-heading font-bold tracking-tight transition-all duration-300 ease-out"
-          style={{ transform: scrolled ? "translateX(180px) scale(1.15)" : "translateX(0) scale(1)" }}
+          className="flex items-center gap-3 text-xl font-heading font-bold tracking-tight"
         >
-          soban.tech
+          <span aria-hidden="true" className="flex size-9 items-center justify-center rounded-base border-2 border-border bg-main text-sm shadow-[2px_2px_0_var(--border)]">se.</span>
+          soban<span className="-ml-3 text-link">.tech</span>
         </Link>
 
         {/* Desktop */}
         <ul
-          className="hidden md:flex items-center gap-1 transition-all duration-300 ease-out"
-          style={{ transform: scrolled ? "translateX(-180px)" : "translateX(0)" }}
+          className="hidden md:flex items-center gap-3"
         >
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href}>
-                <Button
-                  variant={pathname === link.href ? "default" : "noShadow"}
+                <Button asChild
+                  variant={isActive(link.href) ? "default" : "noShadow"}
                   size="sm"
-                  className="transition-transform duration-300 ease-out"
-                  style={{ transform: scrolled ? "scale(1.1)" : "scale(1)" }}
                 >
+                <Link href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
                   {link.label}
+                </Link>
                 </Button>
-              </Link>
             </li>
           ))}
           <li>
-            <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
-              <Button
+              <Button asChild
                 variant="reverse"
                 size="sm"
-                className="transition-transform duration-300 ease-out"
-                style={{ transform: scrolled ? "scale(1.1)" : "scale(1)" }}
               >
+            <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
                  GitHub <ExternalLink className="ml-1 h-3 w-3" />
-               </Button>
             </a>
+               </Button>
           </li>
         </ul>
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center"
+          className="md:hidden rounded-base border-2 border-border bg-main shadow-shadow p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none transition-transform"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-controls="mobile-menu"
@@ -85,29 +73,33 @@ export function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          role="menu"
-          className="md:hidden border-t-2 border-border"
-          style={{ backgroundColor: "#f7e6c6" }}
+          className="md:hidden border-t-2 border-border bg-secondary-background"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setOpen(false);
+              document.querySelector<HTMLButtonElement>('[aria-controls="mobile-menu"]')?.focus();
+            }
+          }}
         >
           <ul className="flex flex-col p-4 gap-2">
             {links.map((link) => (
-              <li key={link.href} role="none">
-                <Link href={link.href} onClick={() => setOpen(false)} role="menuitem">
-                  <Button
-                    variant={pathname === link.href ? "default" : "noShadow"}
+              <li key={link.href}>
+                  <Button asChild
+                    variant={isActive(link.href) ? "default" : "noShadow"}
                     className="w-full min-h-[44px]"
                   >
+                <Link href={link.href} onClick={() => setOpen(false)} aria-current={isActive(link.href) ? "page" : undefined}>
                     {link.label}
-                  </Button>
                 </Link>
+                  </Button>
               </li>
             ))}
-            <li role="none">
-              <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer" role="menuitem">
-                <Button variant="reverse" className="w-full min-h-[44px]">
+            <li>
+                <Button asChild variant="reverse" className="w-full min-h-[44px]">
+              <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
                   GitHub <ExternalLink className="ml-1 h-3 w-3" />
-                </Button>
               </a>
+                </Button>
             </li>
           </ul>
         </div>
