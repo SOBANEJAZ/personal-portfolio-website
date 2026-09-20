@@ -8,12 +8,7 @@ export function Footer() {
     <footer className="relative border-t-2 border-border bg-surface-apricot overflow-hidden">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
+        className="pointer-events-none absolute inset-0 footer-dashed-grid"
       />
       <div className="relative mx-auto max-w-container px-4 pt-8 pb-3 md:px-6 md:pt-10 md:pb-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
