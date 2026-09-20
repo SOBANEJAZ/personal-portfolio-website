@@ -19,8 +19,12 @@ export function Navbar() {
   const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-border bg-secondary-background">
-      <nav aria-label="Main navigation" className="mx-auto max-w-container flex items-center justify-between gap-6 px-5 py-4 md:px-8">
+    <header className="sticky top-0 z-50 border-b-2 border-border bg-surface-apricot">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 surface-dashed-grid"
+      />
+      <nav aria-label="Main navigation" className="relative mx-auto max-w-container flex items-center justify-between gap-6 px-5 py-4 md:px-8">
         <Link
           href="/"
           className="flex items-center gap-3 text-xl font-heading font-bold tracking-tight"
@@ -73,7 +77,7 @@ export function Navbar() {
       {open && (
         <div
           id="mobile-menu"
-          className="md:hidden border-t-2 border-border bg-secondary-background"
+          className="relative md:hidden border-t-2 border-border bg-surface-apricot"
           onKeyDown={(event) => {
             if (event.key === "Escape") {
               setOpen(false);
@@ -81,7 +85,11 @@ export function Navbar() {
             }
           }}
         >
-          <ul className="flex flex-col p-4 gap-2">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 surface-dashed-grid"
+          />
+          <ul className="relative flex flex-col p-4 gap-2">
             {links.map((link) => (
               <li key={link.href}>
                   <Button asChild

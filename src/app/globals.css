@@ -413,12 +413,14 @@
   );
 }
 
-/* Footer 48px dashed grid pattern continuing the main page grid */
+/* 48px dashed grid pattern for header and footer */
+.surface-dashed-grid,
 .footer-dashed-grid {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cline x1='0' y1='0' x2='48' y2='0' stroke='%23c8c0b4' stroke-width='1' stroke-dasharray='5 5'/%3E%3Cline x1='0' y1='0' x2='0' y2='48' stroke='%23c8c0b4' stroke-width='1' stroke-dasharray='5 5'/%3E%3C/svg%3E");
   background-size: 48px 48px;
 }
 
+.dark .surface-dashed-grid,
 .dark .footer-dashed-grid {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cline x1='0' y1='0' x2='48' y2='0' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='5 5'/%3E%3Cline x1='0' y1='0' x2='0' y2='48' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='5 5'/%3E%3C/svg%3E");
   background-size: 48px 48px;
