@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import PageLoader from "@/components/page-loader";
+import { FooterRunner } from "@/components/footer-runner";
 
 export const metadata: Metadata = {
   title: "Soban Ejaz — AI Engineer",
@@ -326,6 +327,7 @@ export default function HomePage() {
         </div>
       </section>
       </div>
+      <FooterRunner />
     </PageLoader>
   );
 }
