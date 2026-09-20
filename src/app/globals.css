@@ -448,13 +448,13 @@ html.dark body.ripple-grid-active,
 body,
 .scrollbar {
   --sb-track-color: #000000;
-  --sb-thumb-color: #262626;
+  --sb-thumb-color: #000000;
 }
 
 html.dark body,
 html.dark .scrollbar {
   --sb-track-color: #000000;
-  --sb-thumb-color: #262626;
+  --sb-thumb-color: #000000;
 }
 
 html.dark body {
@@ -483,24 +483,19 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb,
 .scrollbar::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
-}
-
-body::-webkit-scrollbar-thumb {
-  border-left: 4px solid #000;
+  border: 2px solid #333333;
 }
 
 body::-webkit-scrollbar-thumb:hover,
 .scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #1f1f1f;
+  border-color: #555555;
 }
 
 body::-webkit-scrollbar-thumb:active,
 .scrollbar::-webkit-scrollbar-thumb:active {
-  background: #52525b;
-}
-
-html.dark body::-webkit-scrollbar-thumb {
-  border-left: 4px solid #000;
+  background: #2a2a2a;
+  border-color: #777777;
 }
 
 @supports not selector(::-webkit-scrollbar) {
