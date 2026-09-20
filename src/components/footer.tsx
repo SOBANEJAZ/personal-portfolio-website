@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { Mail } from "lucide-react";
+import { FooterRunner } from "@/components/footer-runner";
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-border bg-secondary-background">
+    <footer className="bg-secondary-background">
+      <FooterRunner />
       <div className="mx-auto max-w-container px-4 py-8 md:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
           <p className="font-heading text-lg font-bold">soban.tech</p>
