@@ -16,15 +16,22 @@
   --heading-font-weight: 700;
   --base-font-weight: 500;
 
-  --background: #d1fbed;
-  --secondary-background: #e3fcef;
-  --foreground: #10251e;
-  --main-foreground: #10251e;
-  --page-background: #d1fbed;
-  --link: #006747;
+  --background: #ffe4c7;
+  --secondary-background: #fff3e4;
+  --foreground: oklch(0% 0 0);
+  --main-foreground: oklch(0% 0 0);
+  --page-background: #fff0da;
+  --link: #9a360b;
 
-  --main: #01d695;
-  --border: #10251e;
+  --surface-peach: #ffdfbf;
+  --surface-apricot: #ffd0a3;
+  --surface-sand: #ffe9cc;
+  --surface-terracotta: #ffc49c;
+  --card-background: var(--surface-peach);
+  --orange-glow: #ffb36b66;
+
+  --main: #F97316;
+  --border: oklch(0% 0 0);
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
 
@@ -35,16 +42,21 @@
   --chart-3: oklch(86.03% 0.176 92.36);
   --chart-4: oklch(79.76% 0.2044 153.08);
   --chart-5: oklch(66.34% 0.1806 277.2);
-  --grid-color: #10251e12;
+  --grid-color: #b956181a;
   --chart-active-dot: #000;
 }
 
 .dark {
-  --background: #10251e;
-  --page-background: #10251e;
-  --secondary-background: #193c30;
-  --foreground: #e8fdf6;
-  --link: #01d695;
+  --background: #352219;
+  --page-background: #241a15;
+  --secondary-background: #30231c;
+  --foreground: oklch(92.49% 0 0);
+  --link: #ffb77b;
+  --surface-peach: #422c20;
+  --surface-apricot: #513322;
+  --surface-sand: #392a20;
+  --surface-terracotta: #593525;
+  --orange-glow: #f973161a;
   --main-foreground: oklch(0% 0 0);
 
   --border: oklch(0% 0 0);
@@ -54,7 +66,7 @@
 
   --chart-active-dot: #fff;
 
-  --grid-color: rgba(255, 255, 255, 0.06);
+  --grid-color: #ffb77b12;
 }
 
 @theme inline {
@@ -68,6 +80,11 @@
   --color-ring: var(--ring);
   --color-page-background: var(--page-background);
   --color-link: var(--link);
+  --color-surface-peach: var(--surface-peach);
+  --color-surface-apricot: var(--surface-apricot);
+  --color-surface-sand: var(--surface-sand);
+  --color-surface-terracotta: var(--surface-terracotta);
+  --color-card-background: var(--card-background);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -304,8 +321,9 @@
     background-color: var(--page-background);
     background-image:
       linear-gradient(var(--grid-color) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-    background-size: 48px 48px;
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+      radial-gradient(ellipse at 100% 0%, var(--orange-glow), transparent 60%);
+    background-size: 48px 48px, 48px 48px, 100% 100%;
   }
 
   h1,
@@ -343,29 +361,44 @@
 }
 
 .surface-grid {
-  background-color: var(--secondary-background);
+  background-color: var(--surface-apricot);
   background-image:
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
+.hero-surface {
+  background-image: linear-gradient(115deg, transparent 35%, var(--orange-glow));
+}
+
+/* The custom property also reaches cards wrapped in project or blog links. */
+.tonal-cards > :nth-child(4n + 1) {
+  --card-background: var(--surface-peach);
+}
+
+.tonal-cards > :nth-child(4n + 2) {
+  --card-background: var(--surface-apricot);
+}
+
+.tonal-cards > :nth-child(4n + 3) {
+  --card-background: var(--surface-sand);
+}
+
+.tonal-cards > :nth-child(4n + 4) {
+  --card-background: var(--surface-terracotta);
+}
+
 body,
 .scrollbar {
-  --sb-track-color: var(--page-background);
+  --sb-track-color: var(--secondary-background);
   --sb-thumb-color: var(--main);
 }
 
 html.dark body,
 html.dark .scrollbar {
-  --sb-track-color: #1f1f1f;
-  --sb-thumb-color: #e6e6e6;
-}
-
-html.dark body {
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cline x1='0' y1='0' x2='48' y2='0' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='5 5'/%3E%3Cline x1='0' y1='0' x2='0' y2='48' stroke='rgba(255,255,255,0.15)' stroke-width='1' stroke-dasharray='5 5'/%3E%3C/svg%3E");
-  background-size: 48px 48px;
+  --sb-track-color: var(--secondary-background);
+  --sb-thumb-color: var(--main);
 }
 
 .scrollbar::-webkit-scrollbar {
