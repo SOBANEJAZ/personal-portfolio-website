@@ -110,6 +110,7 @@
 
   --animate-marquee: marquee 5s linear infinite;
   --animate-marquee2: marquee2 5s linear infinite;
+  --animate-hero-strip: hero-strip 65s linear infinite;
   --animate-jitter: jitter 0.3s ease-in-out infinite;
   --animate-press-in: press-in 0.25s ease forwards;
   --animate-rubber-band: rubber-band 0.5s ease forwards;
@@ -117,6 +118,15 @@
   --animate-spin-slow: spin-slow 3s linear infinite;
 
   --spacing-container: 1300px;
+
+  @keyframes hero-strip {
+    0% {
+      transform: translate3d(-50%, 0, 0);
+    }
+    100% {
+      transform: translate3d(0%, 0, 0);
+    }
+  }
 
   @keyframes marquee {
     0% {
