@@ -447,13 +447,13 @@ html.dark body.ripple-grid-active,
 
 body,
 .scrollbar {
-  --sb-track-color: #000000;
+  --sb-track-color: #fed7aa;
   --sb-thumb-color: #000000;
 }
 
 html.dark body,
 html.dark .scrollbar {
-  --sb-track-color: #000000;
+  --sb-track-color: #fed7aa;
   --sb-thumb-color: #000000;
 }
 
@@ -476,26 +476,19 @@ body::-webkit-scrollbar-track,
   background: var(--sb-track-color);
 }
 
-body::-webkit-scrollbar-track {
-  border-left: 4px solid #000;
-}
-
 body::-webkit-scrollbar-thumb,
 .scrollbar::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
-  border: 2px solid #333333;
 }
 
 body::-webkit-scrollbar-thumb:hover,
 .scrollbar::-webkit-scrollbar-thumb:hover {
   background: #1f1f1f;
-  border-color: #555555;
 }
 
 body::-webkit-scrollbar-thumb:active,
 .scrollbar::-webkit-scrollbar-thumb:active {
   background: #2a2a2a;
-  border-color: #777777;
 }
 
 @supports not selector(::-webkit-scrollbar) {
