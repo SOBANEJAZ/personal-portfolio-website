@@ -21,9 +21,7 @@ const WORDS = [
 ];
 
 const RESPAWN_MS = 2000;
-const PARTICLE_COUNT = 24; // Lightweight count: snappy and zero-lag even on slow phones
-const MIN_FORCE = 380;
-const MAX_FORCE = 850;
+const PARTICLE_COUNT = 38; // Rich, prominent debris count
 
 type Particle = {
   x: number;
@@ -36,6 +34,7 @@ type Particle = {
   vRot: number;
   alpha: number;
   decay: number;
+  char?: string;
 };
 
 type Shockwave = {
@@ -55,77 +54,96 @@ const NEO_COLORS = [
   "#facc15",
   "#ef4444",
   "#fd9745",
+  "#9a360b",
 ];
 
 export function HeroStrip() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Stored in refs to avoid React re-renders
   const particlesRef = useRef<Particle[]>([]);
   const shockwavesRef = useRef<Shockwave[]>([]);
   const animFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef(0);
-  const canvasSizeRef = useRef({ w: 0, h: 0 });
-
   const tickRef = useRef<((now: number) => void) | null>(null);
 
-  // Animation frame loop — ONLY runs while particles are alive
+  // Animation frame loop — ONLY runs while particles are alive (0% idle CPU)
   useEffect(() => {
     tickRef.current = (now: number) => {
+      const container = containerRef.current;
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      if (!container || !canvas) {
+        animFrameRef.current = null;
+        return;
+      }
+
       const ctx = canvas.getContext("2d");
-      if (!ctx) return;
+      if (!ctx) {
+        animFrameRef.current = null;
+        return;
+      }
+
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w === 0 || h === 0) {
+        animFrameRef.current = null;
+        return;
+      }
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+      }
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, w, h);
 
       const delta = Math.min((now - (lastTimeRef.current || now)) / 1000, 0.04);
       lastTimeRef.current = now;
 
-      const { w, h } = canvasSizeRef.current;
-      if (w === 0 || h === 0) return;
-
-      ctx.clearRect(0, 0, w, h);
-
       const particles = particlesRef.current;
       const shockwaves = shockwavesRef.current;
 
-      // 1. Update & draw shockwaves
+      // 1. Update & draw shockwave rings
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
-        sw.radius += (sw.maxRadius - sw.radius) * 16 * delta;
+        sw.radius += 150 * delta; // Linear expansion: completely immune to numerical instability
         sw.alpha -= sw.decay * delta;
 
-        if (sw.alpha <= 0) {
+        if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
           shockwaves.splice(i, 1);
           continue;
         }
 
+        const safeRadius = Math.max(0.1, sw.radius);
         ctx.save();
-        ctx.globalAlpha = Math.max(0, sw.alpha);
-        ctx.lineWidth = 2;
+        ctx.globalAlpha = Math.max(0, Math.min(1, sw.alpha));
+        ctx.lineWidth = 2.5;
         ctx.strokeStyle = "#000000";
         ctx.beginPath();
-        ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+        ctx.arc(sw.x, sw.y, safeRadius, 0, Math.PI * 2);
         ctx.stroke();
         ctx.restore();
       }
 
-      // 2. Update & draw lightweight geometric particles
+      // 2. Update & draw particles (letters & confetti blocks)
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
 
         p.x += p.vx * delta;
         p.y += p.vy * delta;
-        p.vy += 380 * delta; // Gravity
+        p.vy += 320 * delta; // Gravity
+        p.vx *= Math.max(0, 1 - 0.4 * delta); // Air drag
         p.rotation += p.vRot * delta;
         p.alpha -= p.decay * delta;
 
         // Bounce off container borders
-        if (p.y < 2) {
-          p.y = 2;
+        if (p.y < 3) {
+          p.y = 3;
           p.vy = -p.vy * 0.55;
-        } else if (p.y > h - 2) {
-          p.y = h - 2;
+        } else if (p.y > h - 3) {
+          p.y = h - 3;
           p.vy = -p.vy * 0.55;
         }
 
@@ -134,19 +152,36 @@ export function HeroStrip() {
           continue;
         }
 
+        const safeAlpha = Math.max(0, Math.min(1, p.alpha));
+        const safeSize = Math.max(2, p.size);
+
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rotation);
-        ctx.globalAlpha = Math.max(0, p.alpha);
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "#000000";
-        ctx.strokeRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.globalAlpha = safeAlpha;
+
+        if (p.char) {
+          const fontSize = Math.max(8, Math.round(safeSize));
+          ctx.font = `900 ${fontSize}px ui-monospace, monospace`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = p.color;
+          ctx.fillText(p.char, 0, 0);
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = "#000000";
+          ctx.strokeText(p.char, 0, 0);
+        } else {
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-safeSize / 2, -safeSize / 2, safeSize, safeSize);
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = "#000000";
+          ctx.strokeRect(-safeSize / 2, -safeSize / 2, safeSize, safeSize);
+        }
+
         ctx.restore();
       }
 
-      // Stop RAF immediately if no particles or shockwaves remain (0% idle CPU)
+      // Stop RAF immediately if no particles or shockwaves remain
       if (particles.length === 0 && shockwaves.length === 0) {
         ctx.clearRect(0, 0, w, h);
         animFrameRef.current = null;
@@ -165,7 +200,7 @@ export function HeroStrip() {
   }, []);
 
   const triggerExplosion = useCallback(
-    (targetEl: HTMLElement) => {
+    (targetEl: HTMLElement, wordText: string) => {
       // Prevent re-triggering while already exploded
       if (targetEl.dataset.exploded === "true") return;
       targetEl.dataset.exploded = "true";
@@ -173,50 +208,65 @@ export function HeroStrip() {
       const container = containerRef.current;
       if (!container) return;
 
-      // Calculate position relative to container once
+      // Calculate position relative to container
       const wordRect = targetEl.getBoundingClientRect();
       const containerRect = container.getBoundingClientRect();
       const ox = wordRect.left + wordRect.width / 2 - containerRect.left;
       const oy = wordRect.top + wordRect.height / 2 - containerRect.top;
 
-      // Direct DOM manipulation — ZERO React re-renders
-      targetEl.style.transition = "transform 0.08s ease-out, opacity 0.08s ease-out";
+      // Direct DOM manipulation — instant vanish
+      targetEl.style.transition = "transform 0.06s ease-out, opacity 0.06s ease-out";
       targetEl.style.transform = "scale(0)";
       targetEl.style.opacity = "0";
       targetEl.style.pointerEvents = "none";
 
-      // Spawn shockwave
-      shockwavesRef.current.push({
-        x: ox,
-        y: oy,
-        radius: 4,
-        maxRadius: Math.max(50, wordRect.width * 0.7),
-        alpha: 1,
-        decay: 3.2,
-      });
+      // Spawn shockwave rings
+      shockwavesRef.current.push(
+        {
+          x: ox,
+          y: oy,
+          radius: 4,
+          maxRadius: Math.max(55, wordRect.width * 0.7),
+          alpha: 1,
+          decay: 2.2,
+        },
+        {
+          x: ox,
+          y: oy,
+          radius: 2,
+          maxRadius: Math.max(40, wordRect.width * 0.5),
+          alpha: 0.8,
+          decay: 2.8,
+        }
+      );
 
-      // Spawn lightweight particles
+      // Spawn particles: letters from the word + neobrutalist confetti
+      const letters = wordText.replace(/[^a-zA-Z0-9]/g, "").split("");
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const force = MIN_FORCE + Math.random() * (MAX_FORCE - MIN_FORCE);
-        const vx = Math.cos(angle) * force + 40; // slight forward drift
-        const vy = Math.sin(angle) * force * 0.85;
+        const speed = 190 + Math.random() * 320;
+        const vx = Math.cos(angle) * speed + 35;
+        const vy = Math.sin(angle) * speed * 0.8;
+
+        const isChar = Math.random() < 0.35 && letters.length > 0;
+        const char = isChar ? letters[Math.floor(Math.random() * letters.length)] : undefined;
 
         particlesRef.current.push({
-          x: ox + (Math.random() - 0.5) * (wordRect.width * 0.4),
-          y: oy + (Math.random() - 0.5) * (wordRect.height * 0.4),
+          x: ox + (Math.random() - 0.5) * (wordRect.width * 0.5),
+          y: oy + (Math.random() - 0.5) * (wordRect.height * 0.5),
           vx,
           vy,
-          size: 5 + Math.random() * 6,
+          size: isChar ? 13 + Math.random() * 4 : 7 + Math.random() * 7,
           color: NEO_COLORS[Math.floor(Math.random() * NEO_COLORS.length)],
           rotation: Math.random() * Math.PI * 2,
-          vRot: (Math.random() - 0.5) * 20,
+          vRot: (Math.random() - 0.5) * 16,
           alpha: 1,
-          decay: 1.2 + Math.random() * 0.8,
+          decay: 0.85 + Math.random() * 0.5,
+          char,
         });
       }
 
-      // Wake up canvas animation
+      // Wake up canvas animation loop
       ensureAnimationRunning();
 
       // Schedule reconstitution after RESPAWN_MS
@@ -232,30 +282,8 @@ export function HeroStrip() {
     [ensureAnimationRunning]
   );
 
-  // ResizeObserver to track container & canvas dimensions cleanly without layout thrashing
   useEffect(() => {
-    const container = containerRef.current;
-    const canvas = canvasRef.current;
-    if (!container || !canvas) return;
-
-    const resize = () => {
-      const rect = container.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvasSizeRef.current = { w: rect.width, h: rect.height };
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-    };
-
-    resize();
-    const ro = new ResizeObserver(resize);
-    ro.observe(container);
-
     return () => {
-      ro.disconnect();
       if (animFrameRef.current !== null) {
         cancelAnimationFrame(animFrameRef.current);
         animFrameRef.current = null;
@@ -268,8 +296,8 @@ export function HeroStrip() {
       {WORDS.map((word, wordIndex) => (
         <div key={`${groupIndex}-${wordIndex}`} className="flex items-center gap-x-8">
           <span
-            onPointerEnter={(e) => triggerExplosion(e.currentTarget)}
-            onClick={(e) => triggerExplosion(e.currentTarget)}
+            onPointerEnter={(e) => triggerExplosion(e.currentTarget, word)}
+            onClick={(e) => triggerExplosion(e.currentTarget, word)}
             className="relative inline-block cursor-pointer select-none rounded-base border-2 border-transparent px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-border hover:bg-secondary-background hover:shadow-[3px_3px_0_var(--border)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none md:text-sm"
           >
             {word}
@@ -290,10 +318,10 @@ export function HeroStrip() {
       <canvas
         ref={canvasRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-20 h-full w-full"
+        className="pointer-events-none absolute inset-0 z-30 h-full w-full"
       />
 
-      {/* Hardware-accelerated GPU compositor infinite marquee (zero JS execution during scroll) */}
+      {/* Hardware-accelerated GPU compositor infinite marquee */}
       <div className="flex w-max animate-hero-strip will-change-transform motion-reduce:animate-none">
         {/* First Half */}
         <div className="flex shrink-0">
