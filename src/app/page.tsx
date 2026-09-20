@@ -144,7 +144,7 @@ export default function HomePage() {
     <PageLoader>
       <div className="flex flex-col">
         {/* Hero */}
-      <section className="border-b-2 border-border">
+      <section className="hero-surface border-b-2 border-border">
         <div className="mx-auto max-w-container px-5 py-14 md:px-8 lg:py-20">
           <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
             <div className="min-w-0 hero-group">
@@ -169,7 +169,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative mx-auto w-full max-w-[440px]">
-              <div className="overflow-hidden rounded-base border-2 border-border bg-secondary-background shadow-[8px_8px_0_var(--border)]">
+              <div className="overflow-hidden rounded-base border-2 border-border bg-surface-apricot shadow-[8px_8px_0_var(--border)]">
                 <div className="flex items-center justify-end border-b-2 border-border px-4 py-3 font-mono text-xs">
                   <div aria-hidden="true" className="flex gap-1.5"><span className="size-2.5 rounded-full border border-border bg-main" /><span className="size-2.5 rounded-full border border-border" /><span className="size-2.5 rounded-full border border-border" /></div>
                 </div>
@@ -238,7 +238,7 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {experiences.map((exp) => (
-              <Card key={exp.company} className="bg-background">
+              <Card key={exp.company}>
                 <CardHeader>
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>

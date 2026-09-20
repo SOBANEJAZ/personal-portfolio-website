@@ -67,7 +67,7 @@ export default function ContactPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-6">
         {/* Contact Info */}
-        <div className="space-y-4">
+        <div className="tonal-cards space-y-4">
           <Card>
             <CardContent className="pt-6">
               <a

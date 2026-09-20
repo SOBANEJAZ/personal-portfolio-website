@@ -45,7 +45,7 @@ export default function BlogPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="tonal-cards grid grid-cols-1 md:grid-cols-2 gap-6">
         {posts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <Card className="group cursor-pointer h-full">

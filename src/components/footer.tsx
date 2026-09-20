@@ -4,7 +4,7 @@ import { Mail } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-secondary-background">
+    <footer className="bg-surface-apricot">
       <div className="mx-auto max-w-container px-4 py-8 md:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
           <p className="font-heading text-lg font-bold">soban.tech</p>
