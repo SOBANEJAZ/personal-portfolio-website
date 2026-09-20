@@ -34,8 +34,8 @@ export function FooterRunner() {
     velocity: 0,
     obstacleX: GAME_WIDTH * 0.72,
     obstacleIndex: 0,
-    obstacleWidth: techObstacles[0].width,
-    obstacleHeight: techObstacles[0].height,
+    obstacleWidth: techObstacles[0].width as number,
+    obstacleHeight: techObstacles[0].height as number,
     lastFrame: 0,
   });
 
@@ -45,6 +45,8 @@ export function FooterRunner() {
       frameRef.current = null;
     }
   }, []);
+
+  const tickRef = useRef<((now: number) => void) | null>(null);
 
   const tick = useCallback((now: number) => {
     const state = stateRef.current;
@@ -103,8 +105,13 @@ export function FooterRunner() {
       return;
     }
 
-    frameRef.current = requestAnimationFrame(tick);
+    frameRef.current = requestAnimationFrame((t) => tickRef.current?.(t));
   }, []);
+
+  // Sync tickRef so the self-referencing RAF always calls the latest tick
+  useEffect(() => {
+    tickRef.current = tick;
+  });
 
   const startGame = useCallback(
     (jumpImmediately = false) => {
@@ -130,9 +137,9 @@ export function FooterRunner() {
       }
 
       setStatus("running");
-      frameRef.current = requestAnimationFrame(tick);
+      frameRef.current = requestAnimationFrame((t) => tickRef.current?.(t));
     },
-    [stopGame, tick]
+    [stopGame]
   );
 
   const jump = useCallback(() => {
