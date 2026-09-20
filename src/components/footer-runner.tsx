@@ -148,14 +148,14 @@ export function FooterRunner() {
         : "TAP, CLICK, OR PRESS SPACE TO START";
 
   return (
-    <section className="border-b-2 border-border bg-foreground text-secondary-background">
+    <section className="border-b-2 border-border bg-background text-foreground">
       <div className="mx-auto max-w-container px-4 py-6 md:px-6 md:py-8">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs font-bold tracking-[0.16em]">
           <div className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-main shadow-[0_0_0_2px_#10251e,0_0_0_3px_#01d695]" />
+            <span className="size-2.5 rounded-full bg-main shadow-[0_0_0_2px_#d1fbed,0_0_0_3px_#01d695]" />
             <span>FOOTER RUNNER</span>
           </div>
-          <div className="flex items-center gap-5 text-secondary-background/75">
+          <div className="flex items-center gap-5 text-foreground/70">
             <span>SCORE <b className="text-main">{score}</b></span>
             <span>BEST <b className="text-main">{highScore.toString().padStart(3, "0")}</b></span>
           </div>
@@ -164,7 +164,7 @@ export function FooterRunner() {
         <div
           aria-describedby="runner-instructions"
           aria-label="Footer runner game. Press Space or the up arrow to jump."
-          className="relative h-[190px] cursor-pointer overflow-hidden rounded-base border-2 border-secondary-background/80 bg-[#0b1d17] outline-none focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-offset-4 focus-visible:ring-offset-foreground sm:h-[220px]"
+          className="relative h-[190px] cursor-pointer overflow-hidden rounded-base border-2 border-border bg-secondary-background outline-none focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[220px]"
           onKeyDown={(event) => {
             if (event.key === " " || event.key === "ArrowUp") {
               event.preventDefault();
@@ -184,24 +184,24 @@ export function FooterRunner() {
         >
           <div
             aria-hidden="true"
-            className="absolute inset-0 opacity-30"
+            className="absolute inset-0 opacity-50"
             style={{
               backgroundImage:
-                "linear-gradient(#01d69522 1px, transparent 1px), linear-gradient(90deg, #01d69522 1px, transparent 1px)",
+                "linear-gradient(#00674718 1px, transparent 1px), linear-gradient(90deg, #00674718 1px, transparent 1px)",
               backgroundSize: "28px 28px",
             }}
           />
-          <div aria-hidden="true" className="absolute left-0 right-0 bottom-[28px] border-t-2 border-dashed border-main/70" />
+          <div aria-hidden="true" className="absolute left-0 right-0 bottom-[28px] border-t-2 border-dashed border-link" />
 
           <div
             aria-hidden="true"
             className="absolute bottom-[28px] left-[76px] h-9 w-7 transition-none"
             style={{ transform: runnerTransform }}
           >
-            <span className="absolute left-1 top-0 size-5 rounded-full border-2 border-secondary-background bg-main" />
-            <span className="absolute bottom-0 left-0 h-6 w-7 rounded-t-sm border-2 border-secondary-background bg-main" />
-            <span className="absolute bottom-0 left-0 h-2 w-2 border-r-2 border-secondary-background" />
-            <span className="absolute -right-1 bottom-0 h-3 w-2 border-l-2 border-secondary-background" />
+            <span className="absolute left-1 top-0 size-5 rounded-full border-2 border-foreground bg-main" />
+            <span className="absolute bottom-0 left-0 h-6 w-7 rounded-t-sm border-2 border-foreground bg-main" />
+            <span className="absolute bottom-0 left-0 h-2 w-2 border-r-2 border-foreground" />
+            <span className="absolute -right-1 bottom-0 h-3 w-2 border-l-2 border-foreground" />
             <span className="absolute left-3 top-2 h-1.5 w-1.5 rounded-full bg-foreground" />
           </div>
 
@@ -214,15 +214,15 @@ export function FooterRunner() {
               width: `${game.obstacleWidth}px`,
             }}
           >
-            <span className="absolute -left-1 top-1/3 h-2 w-[calc(100%+8px)] border-2 border-secondary-background bg-main" />
-            <span className="absolute inset-0 border-2 border-secondary-background" />
+            <span className="absolute -left-1 top-1/3 h-2 w-[calc(100%+8px)] border-2 border-foreground bg-main" />
+            <span className="absolute inset-0 border-2 border-foreground" />
           </div>
 
-          <div className="absolute inset-x-4 bottom-10 text-center font-mono text-[10px] font-bold tracking-[0.12em] text-secondary-background/75 sm:text-xs">
+          <div className="absolute inset-x-4 bottom-10 text-center font-mono text-[10px] font-bold tracking-[0.12em] text-foreground/70 sm:text-xs">
             {statusText}
           </div>
         </div>
-        <p id="runner-instructions" className="mt-3 text-center font-mono text-[10px] tracking-wide text-secondary-background/60">
+        <p id="runner-instructions" className="mt-3 text-center font-mono text-[10px] tracking-wide text-foreground/60">
           SPACE / ↑ TO JUMP · R TO RESTART
         </p>
       </div>
