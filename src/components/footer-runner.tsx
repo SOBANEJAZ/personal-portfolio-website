@@ -1,15 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { penguinSprite, techObstacles } from "@/components/runner-sprites";
 
 const GAME_WIDTH = 960;
 const RUNNER_LEFT = 76;
-const RUNNER_WIDTH = 28;
+const RUNNER_WIDTH = 36;
 const STORAGE_KEY = "soban-tech-runner-high-score";
 
 type GameStatus = "idle" | "running" | "game-over";
 
 type Game = {
+  obstacleIndex: number;
   obstacleHeight: number;
   obstacleWidth: number;
   obstacleX: number;
@@ -19,20 +21,23 @@ type Game = {
 };
 
 const initialGame: Game = {
-  obstacleHeight: 28,
-  obstacleWidth: 18,
+  obstacleIndex: 0,
+  obstacleHeight: techObstacles[0].height,
+  obstacleWidth: techObstacles[0].width,
   obstacleX: GAME_WIDTH,
   runnerY: 0,
   score: 0,
   status: "idle",
 };
 
-function nextObstacle(score: number) {
-  const tall = Math.random() > 0.65;
+function nextObstacle(score: number, arenaWidth: number, previousIndex: number) {
+  const obstacleIndex = (previousIndex + 1 + Math.floor(Math.random() * (techObstacles.length - 1))) % techObstacles.length;
+  const obstacle = techObstacles[obstacleIndex];
   return {
-    obstacleHeight: tall ? 44 : 28,
-    obstacleWidth: tall ? 16 : 24,
-    obstacleX: GAME_WIDTH + 280 + Math.random() * 300 + Math.min(score * 2, 160),
+    obstacleIndex,
+    obstacleHeight: obstacle.height,
+    obstacleWidth: obstacle.width,
+    obstacleX: arenaWidth + 280 + Math.random() * 300 + Math.min(score * 2, 160),
   };
 }
 
@@ -43,6 +48,8 @@ export function FooterRunner() {
   const frameRef = useRef<number | null>(null);
   const lastFrameRef = useRef(0);
   const velocityRef = useRef(0);
+  const arenaRef = useRef<HTMLDivElement>(null);
+  const arenaWidthRef = useRef(GAME_WIDTH);
 
   const updateGame = useCallback((next: Game) => {
     gameRef.current = next;
@@ -60,7 +67,7 @@ export function FooterRunner() {
     stopGame();
     velocityRef.current = 0;
     lastFrameRef.current = performance.now();
-    const freshGame = { ...initialGame, ...nextObstacle(0), status: "running" as const };
+    const freshGame = { ...initialGame, ...nextObstacle(0, arenaWidthRef.current, gameRef.current.obstacleIndex), status: "running" as const };
     updateGame(freshGame);
 
     const tick = (now: number) => {
@@ -80,7 +87,7 @@ export function FooterRunner() {
       };
 
       if (next.obstacleX + next.obstacleWidth < 0) {
-        next = { ...next, ...nextObstacle(next.score) };
+        next = { ...next, ...nextObstacle(next.score, arenaWidthRef.current, next.obstacleIndex) };
       }
 
       const overlapsRunner =
@@ -124,6 +131,20 @@ export function FooterRunner() {
   }, [startGame]);
 
   useEffect(() => {
+    const arena = arenaRef.current;
+    if (!arena) return;
+
+    const measureArena = () => {
+      arenaWidthRef.current = arena.clientWidth;
+    };
+    measureArena();
+    const observer = new ResizeObserver(measureArena);
+    observer.observe(arena);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const frame = requestAnimationFrame(() => {
       const savedScore = Number(window.localStorage.getItem(STORAGE_KEY));
       if (Number.isFinite(savedScore) && savedScore > 0) {
@@ -139,7 +160,8 @@ export function FooterRunner() {
 
   const score = Math.floor(game.score).toString().padStart(3, "0");
   const runnerTransform = `translateY(${-game.runnerY}px)`;
-  const obstaclePosition = `${Math.max(-5, (game.obstacleX / GAME_WIDTH) * 100)}%`;
+  const obstaclePosition = game.status === "idle" ? "72%" : `${game.obstacleX}px`;
+  const obstacle = techObstacles[game.obstacleIndex];
   const statusText =
     game.status === "running"
       ? "RUNNING"
@@ -163,7 +185,7 @@ export function FooterRunner() {
 
         <div
           aria-describedby="runner-instructions"
-          aria-label="Footer runner game. Press Space or the up arrow to jump."
+          aria-label="Footer runner game. Jump with Tux, the Linux penguin, over programming and framework symbols. Press Space or the up arrow to jump."
           className="relative h-[190px] cursor-pointer overflow-hidden rounded-base border-2 border-border bg-secondary-background outline-none focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[220px]"
           onKeyDown={(event) => {
             if (event.key === " " || event.key === "ArrowUp") {
@@ -180,6 +202,7 @@ export function FooterRunner() {
             jump();
           }}
           role="application"
+          ref={arenaRef}
           tabIndex={0}
         >
           <div
@@ -195,30 +218,26 @@ export function FooterRunner() {
 
           <div
             aria-hidden="true"
-            className="absolute bottom-[28px] left-[76px] h-9 w-7 transition-none"
-            style={{ transform: runnerTransform }}
+            className="absolute bottom-[28px] h-11 transition-none"
+            style={{ left: RUNNER_LEFT, width: RUNNER_WIDTH, transform: runnerTransform }}
           >
-            <span className="absolute left-1 top-0 size-5 rounded-full border-2 border-foreground bg-main" />
-            <span className="absolute bottom-0 left-0 h-6 w-7 rounded-t-sm border-2 border-foreground bg-main" />
-            <span className="absolute bottom-0 left-0 h-2 w-2 border-r-2 border-foreground" />
-            <span className="absolute -right-1 bottom-0 h-3 w-2 border-l-2 border-foreground" />
-            <span className="absolute left-3 top-2 h-1.5 w-1.5 rounded-full bg-foreground" />
+            {penguinSprite}
           </div>
 
           <div
             aria-hidden="true"
-            className="absolute bottom-[28px] bg-main"
+            className="absolute bottom-[28px]"
+            title={obstacle.name}
             style={{
               height: `${game.obstacleHeight}px`,
               left: obstaclePosition,
               width: `${game.obstacleWidth}px`,
             }}
           >
-            <span className="absolute -left-1 top-1/3 h-2 w-[calc(100%+8px)] border-2 border-foreground bg-main" />
-            <span className="absolute inset-0 border-2 border-foreground" />
+            {obstacle.sprite}
           </div>
 
-          <div className="absolute inset-x-4 bottom-10 text-center font-mono text-[10px] font-bold tracking-[0.12em] text-foreground/70 sm:text-xs">
+          <div className="pointer-events-none absolute inset-x-4 top-4 text-center font-mono text-[10px] font-bold tracking-[0.12em] text-foreground/70 sm:text-xs">
             {statusText}
           </div>
         </div>
