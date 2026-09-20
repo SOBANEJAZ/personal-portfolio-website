@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -10,11 +11,13 @@ import {
 } from "@/components/ui/card";
 import {
   ArrowRight,
+  ArrowUpRight,
   Bot,
   Brain,
   Code2,
   ExternalLink,
   Mic,
+  MapPin,
   Server,
   Zap,
 } from "lucide-react";
@@ -140,63 +143,77 @@ export default function HomePage() {
     <PageLoader>
       <div className="flex flex-col">
         {/* Hero */}
-      <section>
-        <div className="mx-auto max-w-container px-4 py-16 md:px-6 md:py-24">
-          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            <div className="max-w-3xl flex-1 hero-group">
-              <Badge className="mb-4">Open to opportunities</Badge>
-              <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-6">
-                <span className="fx-invert-reveal cursor-pointer">hi, i&apos;m soban</span>
+      <section className="border-b-2 border-border">
+        <div className="mx-auto max-w-container px-5 py-14 md:px-8 lg:py-20">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+            <div className="min-w-0 hero-group">
+              <p className="section-kicker">Generative AI Engineer</p>
+              <h1 className="text-[clamp(3rem,6.5vw,5.5rem)] font-heading font-bold leading-[1.08] tracking-tight mb-6">
+                hi, i&apos;m<br />
+                <span className="fx-invert-reveal inline-block">soban<span className="text-link">.</span></span>
               </h1>
-              <p className="text-lg md:text-xl mb-8 leading-relaxed opacity-80">
-                Generative AI Engineer specialized in autonomous agents, RAG
-                systems, and LLM orchestration. I build agents, RAG pipelines,
-                and tools that do something real.
+              <p className="max-w-lg text-lg md:text-xl mb-8 leading-relaxed text-foreground/80">
+                I build AI that does something real. Autonomous agents,
+                RAG pipelines, and useful tools — from the first idea to
+                production.
               </p>
               <div className="flex flex-wrap gap-3">
-                <Link href="/resume">
-                  <Button size="lg">
-                    View Resume <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
-                  <Button variant="reverse" size="lg">
-                    <GithubIcon className="mr-2 h-4 w-4" /> GitHub
-                  </Button>
-                </a>
-                <Link href="/contact">
-                  <Button variant="noShadow" size="lg">
-                    Get in Touch
-                  </Button>
-                </Link>
+                <Button asChild size="lg"><a href="#projects">Explore my work <ArrowUpRight /></a></Button>
+                <Button asChild variant="neutral" size="lg"><Link href="/contact">Let&apos;s talk <ArrowRight /></Link></Button>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+                <span className="flex items-center gap-2 text-foreground/70"><MapPin className="size-4" /> Lahore, Pakistan</span>
+                <Link href="/resume" className="underline decoration-2 underline-offset-4 hover:text-link">View resume</Link>
+                <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 underline decoration-2 underline-offset-4 hover:text-link"><GithubIcon className="size-4" /> GitHub</a>
               </div>
             </div>
-            <div className="shrink-0">
-              <img
+            <div className="relative mx-auto w-full max-w-[440px]">
+              <div className="overflow-hidden rounded-base border-2 border-border bg-secondary-background shadow-[8px_8px_0_var(--border)]">
+                <div className="flex items-center justify-between border-b-2 border-border px-4 py-3 font-mono text-xs">
+                  <span>the human behind the code</span>
+                  <div aria-hidden="true" className="flex gap-1.5"><span className="size-2.5 rounded-full border border-border bg-main" /><span className="size-2.5 rounded-full border border-border" /><span className="size-2.5 rounded-full border border-border" /></div>
+                </div>
+                <div className="bg-main px-6 pt-5">
+              <Image
                 src="/pic.png"
                 alt="Soban Ejaz — AI Engineer"
-                width={400}
-                height={400}
-                className="w-[250px] sm:w-[280px] md:w-[350px] lg:w-[500px] h-auto"
+                width={1000}
+                height={1067}
+                sizes="(max-width: 480px) 85vw, 390px"
+                loading="eager"
+                className="h-auto w-full"
               />
+                </div>
+                <div className="flex items-center justify-between gap-3 border-t-2 border-border px-4 py-4">
+                  <span className="font-bold">Soban Ejaz</span>
+                  <span className="font-mono text-xs">Build. Learn. Repeat.</span>
+                </div>
+              </div>
+              <span aria-hidden="true" className="absolute -right-2 top-20 flex size-16 rotate-12 items-center justify-center border-2 border-border bg-secondary-background text-3xl shadow-shadow sm:-right-5">✳</span>
             </div>
           </div>
         </div>
       </section>
 
+      <div className="border-b-2 border-border bg-main">
+        <div className="mx-auto flex max-w-container flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 font-mono text-xs font-bold uppercase tracking-wider md:justify-between md:text-sm">
+          <span>Autonomous agents</span><span aria-hidden="true">✳</span><span>RAG systems</span><span aria-hidden="true">✳</span><span>LLM orchestration</span><span aria-hidden="true" className="hidden sm:inline">✳</span><span>Production-minded</span>
+        </div>
+      </div>
+
       {/* Skills */}
       <section>
-        <div className="mx-auto max-w-container px-4 py-16 md:px-6">
-          <h2 className="text-[28px] md:text-[34px] font-heading font-bold mb-8">
+        <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
+          <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight mb-8">
             what i work with
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {skills.map((skill) => (
               <Card key={skill.category}>
                 <CardHeader className="pb-3">
-                  <div className="flex items-center gap-2">
-                    <skill.icon className="h-5 w-5" />
-                    <CardTitle className="text-[20px] fx-letter-slam cursor-pointer">{skill.category}</CardTitle>
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 items-center justify-center rounded-base border-2 border-border bg-main"><skill.icon className="h-5 w-5" /></span>
+                    <CardTitle className="text-[20px] font-bold">{skill.category}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -215,25 +232,25 @@ export default function HomePage() {
       </section>
 
       {/* Experience */}
-      <section>
-        <div className="mx-auto max-w-container px-4 py-16 md:px-6">
-          <h2 className="text-[28px] md:text-[34px] font-heading font-bold mb-8">
+      <section className="surface-grid border-y-2 border-border">
+        <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
+          <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight mb-8">
             experience
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {experiences.map((exp) => (
-              <Card key={exp.company}>
+              <Card key={exp.company} className="bg-background">
                 <CardHeader>
-                  <div className="flex items-start justify-between gap-2">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>
-                      <CardTitle className="text-[22px] fx-letter-slam cursor-pointer">{exp.role}</CardTitle>
+                      <CardTitle className="text-[22px] font-bold">{exp.role}</CardTitle>
+                        <Button asChild size="sm" className="text-base mt-3">
                       <a href={exp.link} target="_blank" rel="noopener noreferrer">
-                        <Button variant="noShadow" size="sm" className="text-base mt-1">
                           {exp.company} <ExternalLink className="h-4 w-4" />
-                        </Button>
                       </a>
+                        </Button>
                     </div>
-                    <Badge variant="neutral" className="shrink-0 text-[16px]">
+                    <Badge variant="neutral" className="shrink-0 text-xs">
                       {exp.period}
                     </Badge>
                   </div>
@@ -255,19 +272,19 @@ export default function HomePage() {
       </section>
 
       {/* Projects */}
-      <section>
-        <div className="mx-auto max-w-container px-4 py-16 md:px-6">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-[28px] md:text-[34px] font-heading font-bold">
-              projects
+      <section id="projects">
+        <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
+          <div className="flex flex-wrap items-center justify-between gap-5 mb-8">
+            <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight">
+              things i&apos;ve built
             </h2>
+              <Button asChild variant="neutral" size="sm">
             <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
-              <Button variant="noShadow" size="sm">
                 View all on GitHub <ExternalLink className="ml-2 h-3 w-3" />
-              </Button>
             </a>
+              </Button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {projects.map((project) => (
               <a
                 key={project.title}
@@ -276,18 +293,18 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className="h-full">
+                <Card className="h-full gap-5">
                   <CardHeader>
-                    <CardTitle className="text-[20px] flex items-center gap-2 fx-letter-slam cursor-pointer">
-                      {project.title}
-                      <ExternalLink className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </CardTitle>
+                    <div className="mb-5 flex items-center justify-between border-b-2 border-border/20 pb-4">
+                      <span className="font-heading text-xl leading-tight font-bold text-link md:text-2xl">{project.title}</span>
+                      <span className="flex size-9 items-center justify-center rounded-base border-2 border-border bg-main"><ArrowUpRight className="size-5" /></span>
+                    </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-[16px] text-foreground/70 mb-3">
+                  <CardContent className="flex flex-1 flex-col">
+                    <p className="text-lg leading-relaxed text-foreground/75 mb-3">
                       {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="mt-auto flex flex-wrap gap-1.5 pt-3">
                       {project.tech.map((t) => (
                         <Badge key={t} variant="neutral" className="text-xs">
                           {t}
@@ -299,6 +316,15 @@ export default function HomePage() {
               </a>
             ))}
           </div>
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-container px-5 pb-20 md:px-8">
+        <div className="flex flex-col items-start justify-between gap-8 rounded-base border-2 border-border bg-main p-7 shadow-shadow md:flex-row md:items-center md:p-12">
+          <div>
+            <p className="section-kicker">Have something in mind?</p>
+            <h2 className="max-w-xl text-3xl font-bold tracking-tight md:text-4xl">Let&apos;s build something useful.</h2>
+          </div>
+          <Button asChild variant="reverse" size="lg"><Link href="/contact">Get in touch <ArrowUpRight /></Link></Button>
         </div>
       </section>
       </div>
