@@ -175,7 +175,7 @@ export function FooterRunner() {
         : "TAP, CLICK, OR PRESS SPACE TO START";
 
   return (
-    <section className="border-b-2 border-border bg-transparent text-foreground">
+    <div className="bg-transparent text-foreground">
       <div className="mx-auto max-w-container px-4 py-6 md:px-6 md:py-8">
         <div className="mb-4 flex items-center justify-end gap-5 font-mono text-xs font-bold tracking-[0.16em] text-foreground/70">
           <span>SCORE <b className="text-main">{score}</b></span>
@@ -240,6 +240,6 @@ export function FooterRunner() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

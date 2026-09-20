@@ -23,7 +23,6 @@ import {
 import { GithubIcon } from "@/components/icons";
 import PageLoader from "@/components/page-loader";
 import { HeroStrip } from "@/components/hero-strip";
-import { FooterRunner } from "@/components/footer-runner";
 
 export const metadata: Metadata = {
   title: "Soban Ejaz — AI Engineer",
@@ -338,7 +337,6 @@ export default function HomePage() {
         </div>
       </section>
       </div>
-      <FooterRunner />
     </PageLoader>
   );
 }
