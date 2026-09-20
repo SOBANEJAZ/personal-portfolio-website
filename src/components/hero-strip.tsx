@@ -21,7 +21,7 @@ const WORDS = [
 ];
 
 const RESPAWN_MS = 2000;
-const PARTICLE_COUNT = 38; // Rich, prominent debris count
+const PARTICLE_COUNT = 38; // Rich, prominent explosion debris count
 
 type Particle = {
   x: number;
@@ -60,18 +60,21 @@ const NEO_COLORS = [
 export function HeroStrip() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   const particlesRef = useRef<Particle[]>([]);
   const shockwavesRef = useRef<Shockwave[]>([]);
   const animFrameRef = useRef<number | null>(null);
   const lastTimeRef = useRef(0);
+  const lastMarqueeLeftRef = useRef<number | null>(null);
   const tickRef = useRef<((now: number) => void) | null>(null);
 
-  // Animation frame loop — ONLY runs while particles are alive (0% idle CPU)
+  // Animation frame loop — ONLY runs while particles or shockwaves are alive (0% idle CPU)
   useEffect(() => {
     tickRef.current = (now: number) => {
       const container = containerRef.current;
       const canvas = canvasRef.current;
+      const marquee = marqueeRef.current;
       if (!container || !canvas) {
         animFrameRef.current = null;
         return;
@@ -102,13 +105,32 @@ export function HeroStrip() {
       const delta = Math.min((now - (lastTimeRef.current || now)) / 1000, 0.04);
       lastTimeRef.current = now;
 
+      // Calculate strip conveyor movement delta (pixels moved this frame)
+      let stripDx = 0;
+      if (marquee) {
+        const curLeft = marquee.getBoundingClientRect().left;
+        if (lastMarqueeLeftRef.current !== null) {
+          const rawDx = curLeft - lastMarqueeLeftRef.current;
+          // Normal conveyor movement is negative (moving left). Ignore wrap-around jump (> 300px)
+          if (Math.abs(rawDx) < 300) {
+            stripDx = rawDx;
+          }
+        }
+        lastMarqueeLeftRef.current = curLeft;
+      }
+      // Fallback if measurement hasn't established yet (~45px/s at 75s animation)
+      if (stripDx === 0 && delta > 0) {
+        stripDx = -45 * delta;
+      }
+
       const particles = particlesRef.current;
       const shockwaves = shockwavesRef.current;
 
-      // 1. Update & draw shockwave rings
+      // 1. Update & draw shockwave rings (moving along with strip)
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
-        sw.radius += 150 * delta; // Linear expansion: completely immune to numerical instability
+        sw.x += stripDx;
+        sw.radius += 150 * delta;
         sw.alpha -= sw.decay * delta;
 
         if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
@@ -127,11 +149,11 @@ export function HeroStrip() {
         ctx.restore();
       }
 
-      // 2. Update & draw particles (letters & confetti blocks)
+      // 2. Update & draw explosion debris particles (moving along with strip + scattering)
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
 
-        p.x += p.vx * delta;
+        p.x += p.vx * delta + stripDx; // Scramble/scatter velocity + strip conveyor motion
         p.y += p.vy * delta;
         p.vy += 320 * delta; // Gravity
         p.vx *= Math.max(0, 1 - 0.4 * delta); // Air drag
@@ -181,10 +203,11 @@ export function HeroStrip() {
         ctx.restore();
       }
 
-      // Stop RAF immediately if no particles or shockwaves remain
+      // Stop RAF immediately if no particles or shockwaves remain (0% CPU at idle, clean strip)
       if (particles.length === 0 && shockwaves.length === 0) {
         ctx.clearRect(0, 0, w, h);
         animFrameRef.current = null;
+        lastMarqueeLeftRef.current = null;
         return;
       }
 
@@ -195,6 +218,9 @@ export function HeroStrip() {
   const ensureAnimationRunning = useCallback(() => {
     if (animFrameRef.current === null && tickRef.current) {
       lastTimeRef.current = performance.now();
+      if (marqueeRef.current) {
+        lastMarqueeLeftRef.current = marqueeRef.current.getBoundingClientRect().left;
+      }
       animFrameRef.current = requestAnimationFrame((t) => tickRef.current?.(t));
     }
   }, []);
@@ -240,12 +266,12 @@ export function HeroStrip() {
         }
       );
 
-      // Spawn particles: letters from the word + neobrutalist confetti
+      // Spawn particles: letters from the word + neobrutalist confetti debris
       const letters = wordText.replace(/[^a-zA-Z0-9]/g, "").split("");
       for (let i = 0; i < PARTICLE_COUNT; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 190 + Math.random() * 320;
-        const vx = Math.cos(angle) * speed + 35;
+        const speed = 160 + Math.random() * 260;
+        const vx = Math.cos(angle) * speed;
         const vy = Math.sin(angle) * speed * 0.8;
 
         const isChar = Math.random() < 0.35 && letters.length > 0;
@@ -314,7 +340,7 @@ export function HeroStrip() {
       aria-label="Interactive AI Skills Strip. Hover over any skill word to explode it."
       className="relative w-full overflow-hidden border-b-2 border-border bg-main py-4 select-none"
     >
-      {/* Absolute particle explosion canvas overlay (0% CPU at idle) */}
+      {/* Absolute particle explosion canvas overlay (0% CPU at idle, only active when exploded) */}
       <canvas
         ref={canvasRef}
         aria-hidden="true"
@@ -322,7 +348,7 @@ export function HeroStrip() {
       />
 
       {/* Hardware-accelerated GPU compositor infinite marquee */}
-      <div className="flex w-max animate-hero-strip will-change-transform motion-reduce:animate-none">
+      <div ref={marqueeRef} className="flex w-max animate-hero-strip will-change-transform">
         {/* First Half */}
         <div className="flex shrink-0">
           {renderWordGroup(0)}
