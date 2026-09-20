@@ -175,21 +175,14 @@ export function FooterRunner() {
         : "TAP, CLICK, OR PRESS SPACE TO START";
 
   return (
-    <section className="border-b-2 border-border bg-background text-foreground">
+    <section className="border-b-2 border-border bg-transparent text-foreground">
       <div className="mx-auto max-w-container px-4 py-6 md:px-6 md:py-8">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs font-bold tracking-[0.16em]">
-          <div className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-main shadow-[0_0_0_2px_var(--background),0_0_0_3px_var(--main)]" />
-            <span>FOOTER RUNNER</span>
-          </div>
-          <div className="flex items-center gap-5 text-foreground/70">
-            <span>SCORE <b className="text-main">{score}</b></span>
-            <span>BEST <b className="text-main">{highScore.toString().padStart(3, "0")}</b></span>
-          </div>
+        <div className="mb-4 flex items-center justify-end gap-5 font-mono text-xs font-bold tracking-[0.16em] text-foreground/70">
+          <span>SCORE <b className="text-main">{score}</b></span>
+          <span>BEST <b className="text-main">{highScore.toString().padStart(3, "0")}</b></span>
         </div>
 
         <div
-          aria-describedby="runner-instructions"
           aria-label="Footer runner game. Jump with Tux, the Linux penguin, over programming and framework symbols. Press Space or the up arrow to jump."
           className="relative h-[190px] cursor-pointer overflow-hidden rounded-base border-2 border-border bg-secondary-background outline-none focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-offset-4 focus-visible:ring-offset-background sm:h-[220px]"
           onKeyDown={(event) => {
@@ -246,9 +239,6 @@ export function FooterRunner() {
             {statusText}
           </div>
         </div>
-        <p id="runner-instructions" className="mt-3 text-center font-mono text-[10px] tracking-wide text-foreground/60">
-          SPACE / ↑ TO JUMP · R TO RESTART
-        </p>
       </div>
     </section>
   );
