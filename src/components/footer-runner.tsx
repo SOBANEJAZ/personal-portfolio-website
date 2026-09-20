@@ -179,7 +179,7 @@ export function FooterRunner() {
       <div className="mx-auto max-w-container px-4 py-6 md:px-6 md:py-8">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3 font-mono text-xs font-bold tracking-[0.16em]">
           <div className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-main shadow-[0_0_0_2px_#d1fbed,0_0_0_3px_#01d695]" />
+            <span className="size-2.5 rounded-full bg-main shadow-[0_0_0_2px_var(--background),0_0_0_3px_var(--main)]" />
             <span>FOOTER RUNNER</span>
           </div>
           <div className="flex items-center gap-5 text-foreground/70">
@@ -215,7 +215,7 @@ export function FooterRunner() {
             className="absolute inset-0 opacity-50"
             style={{
               backgroundImage:
-                "linear-gradient(#00674718 1px, transparent 1px), linear-gradient(90deg, #00674718 1px, transparent 1px)",
+                "linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px)",
               backgroundSize: "28px 28px",
             }}
           />

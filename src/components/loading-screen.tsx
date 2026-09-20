@@ -8,7 +8,7 @@ export default function LoadingScreen() {
         <div className="absolute -top-14 -left-14 w-16 h-16 bg-page-background border-4 border-border shadow-[6px_6px_0px_0px_var(--border)] transform rotate-45 animate-spin-slow" />
 
         {/* Main loading text */}
-        <div className="text-5xl sm:text-6xl font-black bg-white p-8 rotate-2 border-4 border-border shadow-[8px_8px_0px_0px_var(--border)]">
+        <div className="text-5xl sm:text-6xl font-black bg-secondary-background p-8 rotate-2 border-4 border-border shadow-[8px_8px_0px_0px_var(--border)]">
           LOADING
         </div>
 
