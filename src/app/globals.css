@@ -16,14 +16,15 @@
   --heading-font-weight: 700;
   --base-font-weight: 500;
 
-  --background: oklch(96% 0.01 254);
-  --secondary-background: oklch(100% 0 0);
-  --foreground: oklch(0% 0 0);
-  --main-foreground: oklch(0% 0 0);
-  --page-background: #fff4e0;
+  --background: #d1fbed;
+  --secondary-background: #e8fdf6;
+  --foreground: #10251e;
+  --main-foreground: #10251e;
+  --page-background: #d1fbed;
+  --link: #006747;
 
-  --main: #F97316;
-  --border: oklch(0% 0 0);
+  --main: #01d695;
+  --border: #10251e;
   --ring: oklch(0% 0 0);
   --overlay: oklch(0% 0 0 / 0.8);
 
@@ -34,14 +35,16 @@
   --chart-3: oklch(86.03% 0.176 92.36);
   --chart-4: oklch(79.76% 0.2044 153.08);
   --chart-5: oklch(66.34% 0.1806 277.2);
-  --grid-color: #e0d8cc;
+  --grid-color: #10251e12;
   --chart-active-dot: #000;
 }
 
 .dark {
-  --background: oklch(29.12% 0.0633 270.86);
-  --secondary-background: oklch(23.93% 0 0);
-  --foreground: oklch(92.49% 0 0);
+  --background: #10251e;
+  --page-background: #10251e;
+  --secondary-background: #193c30;
+  --foreground: #e8fdf6;
+  --link: #01d695;
   --main-foreground: oklch(0% 0 0);
 
   --border: oklch(0% 0 0);
@@ -64,6 +67,7 @@
   --color-overlay: var(--overlay);
   --color-ring: var(--ring);
   --color-page-background: var(--page-background);
+  --color-link: var(--link);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
@@ -279,11 +283,28 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  ::selection {
+    background: var(--main);
+    color: var(--main-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 5px;
+  }
+
   body {
     @apply text-foreground font-base;
+    font-family: var(--font-base), ui-sans-serif, system-ui, sans-serif;
     background-color: var(--page-background);
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cline x1='0' y1='0' x2='48' y2='0' stroke='%23c8c0b4' stroke-width='1' stroke-dasharray='5 5'/%3E%3Cline x1='0' y1='0' x2='0' y2='48' stroke='%23c8c0b4' stroke-width='1' stroke-dasharray='5 5'/%3E%3C/svg%3E");
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 48px 48px;
   }
 
@@ -294,13 +315,45 @@
   h5,
   h6 {
     @apply font-heading;
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.section-kicker::before {
+  content: '';
+  width: 1.5rem;
+  height: 2px;
+  background: currentColor;
+}
+
+.surface-grid {
+  background-color: var(--secondary-background);
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 body,
 .scrollbar {
-  --sb-track-color: #ffffff;
-  --sb-thumb-color: #000000;
+  --sb-track-color: var(--page-background);
+  --sb-thumb-color: var(--main);
 }
 
 html.dark body,
@@ -387,7 +440,7 @@ html.dark body::-webkit-scrollbar-thumb {
 }
 
 .blog-prose a {
-  color: var(--main);
+  color: var(--link);
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 2px;
@@ -396,7 +449,8 @@ html.dark body::-webkit-scrollbar-thumb {
 }
 
 .blog-prose a:hover {
-  color: oklch(60% 0.2 25);
+  color: var(--foreground);
+  background: var(--main);
 }
 
 .blog-prose ul,
