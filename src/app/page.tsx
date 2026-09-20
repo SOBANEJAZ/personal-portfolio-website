@@ -12,7 +12,6 @@ import {
 import {
   ArrowRight,
   ArrowUpRight,
-  Asterisk,
   Bot,
   Brain,
   Code2,
@@ -23,6 +22,7 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import PageLoader from "@/components/page-loader";
+import { HeroStrip } from "@/components/hero-strip";
 import { FooterRunner } from "@/components/footer-runner";
 
 export const metadata: Metadata = {
@@ -205,17 +205,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="border-b-2 border-border bg-main">
-        <div className="mx-auto flex max-w-container flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 font-mono text-xs font-bold uppercase tracking-wider md:justify-between md:text-sm">
-          <span>Autonomous agents</span>
-          <Asterisk aria-hidden="true" className="size-4 shrink-0 text-link" />
-          <span>RAG systems</span>
-          <Asterisk aria-hidden="true" className="size-4 shrink-0 text-link" />
-          <span>LLM orchestration</span>
-          <Asterisk aria-hidden="true" className="hidden size-4 shrink-0 text-link sm:block" />
-          <span>Production-minded</span>
-        </div>
-      </div>
+      <HeroStrip />
 
       {/* Skills */}
       <section className="section-orange-gradient">
