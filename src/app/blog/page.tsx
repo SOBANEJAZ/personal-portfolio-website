@@ -34,8 +34,9 @@ export default function BlogPage() {
 
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6">
-      <div className="mb-12">
-        <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4">
+      <div className="mb-12 border-b-2 border-border pb-10">
+        <p className="section-kicker">Notes from the workbench</p>
+        <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
           blog
         </h1>
         <p className="text-lg text-foreground/60 max-w-2xl">
@@ -44,7 +45,7 @@ export default function BlogPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {posts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <Card className="group cursor-pointer h-full">
@@ -53,7 +54,7 @@ export default function BlogPage() {
                   <Calendar className="h-3.5 w-3.5" />
                   {formatDate(post.date)}
                 </div>
-                <CardTitle className="text-lg text-foreground group-hover:underline decoration-2 underline-offset-4">
+                <CardTitle className="text-2xl font-bold leading-snug text-foreground group-hover:underline decoration-2 underline-offset-4">
                   {post.title}
                 </CardTitle>
               </CardHeader>

@@ -116,8 +116,9 @@ export default function ResumePage() {
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-12">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12 border-b-2 border-border pb-10">
         <div>
+          <p className="section-kicker">The experience behind the work</p>
           <h1 className="text-3xl md:text-5xl font-heading font-bold mb-2">
             Soban Ejaz
           </h1>
@@ -125,15 +126,15 @@ export default function ResumePage() {
             Generative AI Engineer — Autonomous Agents, RAG Systems, LLM Orchestration
           </p>
           <div className="flex flex-wrap gap-2 mt-3 text-sm text-foreground/50">
-            <a href="mailto:sobanpythonista@gmail.com" className="hover:text-main transition-colors">
+            <a href="mailto:sobanpythonista@gmail.com" className="hover:text-link transition-colors">
               sobanpythonista@gmail.com
             </a>
             <span>·</span>
-            <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer" className="hover:text-main transition-colors">
+            <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer" className="hover:text-link transition-colors">
               github.com/SOBANEJAZ
             </a>
             <span>·</span>
-            <a href="https://linkedin.com/in/sobanejaz" target="_blank" rel="noopener noreferrer" className="hover:text-main transition-colors">
+            <a href="https://linkedin.com/in/sobanejaz" target="_blank" rel="noopener noreferrer" className="hover:text-link transition-colors">
               linkedin.com/in/sobanejaz
             </a>
             <span>·</span>
@@ -189,7 +190,7 @@ export default function ResumePage() {
         </h2>
         <Card>
           <CardHeader>
-            <div className="flex items-start justify-between gap-2">
+            <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
                 <CardTitle className="text-[22px]">{education.degree}</CardTitle>
                 <p className="text-foreground/60 mt-1">{education.school}</p>
@@ -217,7 +218,7 @@ export default function ResumePage() {
           {experience.map((exp) => (
             <Card key={exp.company}>
               <CardHeader>
-                <div className="flex items-start justify-between gap-2">
+                <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <CardTitle className="text-[22px]">{exp.role}</CardTitle>
                     <a href={exp.link} target="_blank" rel="noopener noreferrer">

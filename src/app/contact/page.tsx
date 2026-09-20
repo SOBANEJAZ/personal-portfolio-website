@@ -54,8 +54,9 @@ export default function ContactPage() {
 
   return (
     <div className="mx-auto max-w-container px-4 py-16 md:px-6">
-      <div className="mb-12">
-        <h1 className="text-3xl md:text-5xl font-heading font-bold mb-4">
+      <div className="mb-12 border-b-2 border-border pb-10">
+        <p className="section-kicker">Let’s make something happen</p>
+        <h1 className="text-4xl md:text-6xl font-heading font-bold tracking-tight mb-4">
           get in touch
         </h1>
         <p className="text-lg text-foreground/60 max-w-2xl">
@@ -64,7 +65,7 @@ export default function ContactPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-6">
         {/* Contact Info */}
         <div className="space-y-4">
           <Card>
@@ -73,12 +74,12 @@ export default function ContactPage() {
                 href="mailto:sobanpythonista@gmail.com"
                 className="flex items-center gap-3 group"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-base border-2 border-border bg-main">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-base border-2 border-border bg-main">
                   <Mail className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <p className="font-heading font-bold text-sm">Email</p>
-                  <p className="text-sm text-foreground/60 group-hover:text-main transition-colors">
+                  <p className="break-words text-sm text-foreground/75 group-hover:text-link transition-colors">
                     sobanpythonista@gmail.com
                   </p>
                 </div>
@@ -99,7 +100,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-heading font-bold text-sm">LinkedIn</p>
-                  <p className="text-sm text-foreground/60 group-hover:text-main transition-colors">
+                  <p className="text-sm text-foreground/75 group-hover:text-link transition-colors">
                     linkedin.com/in/sobanejaz
                   </p>
                 </div>
@@ -120,7 +121,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-heading font-bold text-sm">GitHub</p>
-                  <p className="text-sm text-foreground/60 group-hover:text-main transition-colors">
+                  <p className="text-sm text-foreground/75 group-hover:text-link transition-colors">
                     github.com/SOBANEJAZ
                   </p>
                 </div>
@@ -130,10 +131,10 @@ export default function ContactPage() {
         </div>
 
         {/* Contact Form */}
-        <div className="md:col-span-2">
+        <div>
           <Card>
             <CardHeader>
-              <CardTitle>send me a message</CardTitle>
+              <CardTitle className="text-2xl font-bold">send me a message</CardTitle>
             </CardHeader>
             <CardContent>
               {submitted ? (
