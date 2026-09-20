@@ -3,6 +3,7 @@ import { Rubik, Nunito } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { BackgroundRipple } from "@/components/background-ripple";
 
 const rubik = Rubik({
   variable: "--font-heading",
@@ -108,7 +109,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col isolate" suppressHydrationWarning>
+        <BackgroundRipple />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:bg-main focus:text-main-foreground focus:px-4 focus:py-2 focus:font-heading focus:font-bold focus:border-2 focus:border-border focus:shadow-shadow"

@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import PageLoader from "@/components/page-loader";
+import { BackgroundRipple } from "@/components/background-ripple";
 import { FooterRunner } from "@/components/footer-runner";
 
 export const metadata: Metadata = {
@@ -250,7 +251,8 @@ export default function HomePage() {
       </section>
 
       {/* Experience */}
-      <section className="surface-grid border-y-2 border-border">
+      <section className="surface-grid relative isolate border-y-2 border-border">
+        <BackgroundRipple contained />
         <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
           <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight mb-8">
             experience
