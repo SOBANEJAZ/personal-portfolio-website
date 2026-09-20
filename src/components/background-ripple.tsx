@@ -106,9 +106,13 @@ export function BackgroundRipple({ contained = false }: { contained?: boolean })
 
         ctx.strokeStyle = gridColor;
         ctx.lineWidth = 1;
-        ctx.beginPath();
+        ctx.setLineDash([5, 5]);
+
         const gridTop = contained ? Math.floor(top / GRID) * GRID : -(scrollY % GRID);
         const gridLeft = contained ? 0 : -(scrollX % GRID);
+
+        ctx.lineDashOffset = -(scrollY % 10);
+        ctx.beginPath();
         for (let x = gridLeft; x <= width; x += GRID) {
           ctx.moveTo(x + 0.5, top);
           if (localWaves.length) {
@@ -116,6 +120,10 @@ export function BackgroundRipple({ contained = false }: { contained?: boolean })
           }
           ctx.lineTo(x + 0.5, bottom);
         }
+        ctx.stroke();
+
+        ctx.lineDashOffset = -(scrollX % 10);
+        ctx.beginPath();
         for (let y = gridTop; y <= bottom; y += GRID) {
           ctx.moveTo(0, y + 0.5);
           if (localWaves.length) {

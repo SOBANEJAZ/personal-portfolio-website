@@ -18,13 +18,11 @@ import {
   Code2,
   ExternalLink,
   Mic,
-  MapPin,
   Server,
   Zap,
 } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
 import PageLoader from "@/components/page-loader";
-import { BackgroundRipple } from "@/components/background-ripple";
 import { FooterRunner } from "@/components/footer-runner";
 
 export const metadata: Metadata = {
@@ -167,9 +165,9 @@ export default function HomePage() {
                 hi, i&apos;m<br />
                 <span className="fx-invert-reveal inline-block">soban<span className="text-link">.</span></span>
               </h1>
-              <p className="max-w-lg text-lg md:text-xl mb-8 leading-relaxed text-foreground/80">
+              <p className="max-w-lg text-lg md:text-xl mb-8 leading-relaxed font-bold text-foreground/80">
                 I build AI that does something real. Autonomous agents,
-                RAG pipelines, and useful tools — from the first idea to
+                RAG pipelines, and useful tools from the first idea to
                 production.
               </p>
               <div className="flex flex-wrap gap-3">
@@ -177,7 +175,6 @@ export default function HomePage() {
                 <Button asChild variant="neutral" size="lg"><Link href="/contact">Let&apos;s talk <ArrowRight /></Link></Button>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
-                <span className="flex items-center gap-2 text-foreground/70"><MapPin className="size-4" /> Lahore, Pakistan</span>
                 <Link href="/resume" className="underline decoration-2 underline-offset-4 hover:text-link">View resume</Link>
                 <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 underline decoration-2 underline-offset-4 hover:text-link"><GithubIcon className="size-4" /> GitHub</a>
               </div>
@@ -221,7 +218,7 @@ export default function HomePage() {
       </div>
 
       {/* Skills */}
-      <section>
+      <section className="section-orange-gradient">
         <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
           <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight mb-8">
             what i work with
@@ -250,9 +247,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="divider-orange-gradient" aria-hidden="true" />
+
       {/* Experience */}
-      <section className="surface-grid relative isolate border-y-2 border-border">
-        <BackgroundRipple contained />
+      <section>
         <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
           <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight mb-8">
             experience
@@ -291,8 +289,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <div className="divider-orange-gradient" aria-hidden="true" />
+
       {/* Projects */}
-      <section id="projects">
+      <section id="projects" className="section-orange-gradient">
         <div className="mx-auto max-w-container px-5 py-16 md:px-8 md:py-20">
           <div className="flex flex-wrap items-center justify-between gap-5 mb-8">
             <h2 className="text-3xl md:text-[42px] font-heading font-bold tracking-tight">
@@ -316,7 +316,7 @@ export default function HomePage() {
                 <Card className={`h-full gap-5 ${project.tone}`}>
                   <CardHeader>
                     <div className="mb-5 flex items-center justify-between border-b-2 border-border/20 pb-4">
-                      <span className="font-heading text-xl leading-tight font-bold text-link md:text-2xl">{project.title}</span>
+                      <span className="font-heading text-xl leading-tight font-bold text-[#4a1805] md:text-2xl">{project.title}</span>
                       <span className="flex size-9 items-center justify-center rounded-base border-2 border-border bg-main"><ArrowUpRight className="size-5" /></span>
                     </div>
                   </CardHeader>
