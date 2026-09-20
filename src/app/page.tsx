@@ -169,8 +169,7 @@ export default function HomePage() {
             </div>
             <div className="relative mx-auto w-full max-w-[440px]">
               <div className="overflow-hidden rounded-base border-2 border-border bg-secondary-background shadow-[8px_8px_0_var(--border)]">
-                <div className="flex items-center justify-between border-b-2 border-border px-4 py-3 font-mono text-xs">
-                  <span>the human behind the code</span>
+                <div className="flex items-center justify-end border-b-2 border-border px-4 py-3 font-mono text-xs">
                   <div aria-hidden="true" className="flex gap-1.5"><span className="size-2.5 rounded-full border border-border bg-main" /><span className="size-2.5 rounded-full border border-border" /><span className="size-2.5 rounded-full border border-border" /></div>
                 </div>
                 <div className="bg-main px-6 pt-5">
@@ -184,9 +183,8 @@ export default function HomePage() {
                 className="h-auto w-full"
               />
                 </div>
-                <div className="flex items-center justify-between gap-3 border-t-2 border-border px-4 py-4">
-                  <span className="font-bold">Soban Ejaz</span>
-                  <span className="font-mono text-xs">Build. Learn. Repeat.</span>
+                <div className="flex items-center border-t-2 border-border px-4 py-4">
+                  <span className="font-black">Soban Ejaz</span>
                 </div>
               </div>
               <span aria-hidden="true" className="absolute -right-2 top-20 flex size-16 rotate-12 items-center justify-center border-2 border-border bg-secondary-background text-3xl shadow-shadow sm:-right-5">✳</span>
