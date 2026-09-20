@@ -6,6 +6,11 @@ import { penguinSprite, techObstacles } from "@/components/runner-sprites";
 const GAME_WIDTH = 960;
 const RUNNER_LEFT = 76;
 const RUNNER_WIDTH = 36;
+const RUNNER_HITBOX_LEFT = 6;
+const RUNNER_HITBOX_WIDTH = RUNNER_WIDTH - RUNNER_HITBOX_LEFT * 2;
+const OBSTACLE_HITBOX_INSET = 4;
+const OBSTACLE_HITBOX_HEIGHT_INSET = 7;
+const JUMP_VELOCITY = 710;
 const STORAGE_KEY = "soban-tech-runner-high-score";
 
 type GameStatus = "idle" | "running" | "game-over";
@@ -63,9 +68,9 @@ export function FooterRunner() {
     }
   }, []);
 
-  const startGame = useCallback(() => {
+  const startGame = useCallback((jumpImmediately = false) => {
     stopGame();
-    velocityRef.current = 0;
+    velocityRef.current = jumpImmediately ? JUMP_VELOCITY : 0;
     lastFrameRef.current = performance.now();
     const freshGame = { ...initialGame, ...nextObstacle(0, arenaWidthRef.current, gameRef.current.obstacleIndex), status: "running" as const };
     updateGame(freshGame);
@@ -90,10 +95,13 @@ export function FooterRunner() {
         next = { ...next, ...nextObstacle(next.score, arenaWidthRef.current, next.obstacleIndex) };
       }
 
-      const overlapsRunner =
-        next.obstacleX < RUNNER_LEFT + RUNNER_WIDTH &&
-        next.obstacleX + next.obstacleWidth > RUNNER_LEFT;
-      const hitObstacle = overlapsRunner && next.runnerY < next.obstacleHeight;
+      const obstacleLeft = next.obstacleX + OBSTACLE_HITBOX_INSET;
+      const obstacleRight = next.obstacleX + next.obstacleWidth - OBSTACLE_HITBOX_INSET;
+      const runnerLeft = RUNNER_LEFT + RUNNER_HITBOX_LEFT;
+      const runnerRight = runnerLeft + RUNNER_HITBOX_WIDTH;
+      const overlapsRunner = obstacleLeft < runnerRight && obstacleRight > runnerLeft;
+      const hitObstacle =
+        overlapsRunner && next.runnerY < next.obstacleHeight - OBSTACLE_HITBOX_HEIGHT_INSET;
 
       if (hitObstacle) {
         const finalScore = Math.floor(next.score);
@@ -118,15 +126,12 @@ export function FooterRunner() {
   const jump = useCallback(() => {
     const current = gameRef.current;
     if (current.status !== "running") {
-      startGame();
-      window.setTimeout(() => {
-        velocityRef.current = 710;
-      }, 0);
+      startGame(true);
       return;
     }
 
     if (current.runnerY <= 1) {
-      velocityRef.current = 710;
+      velocityRef.current = JUMP_VELOCITY;
     }
   }, [startGame]);
 
