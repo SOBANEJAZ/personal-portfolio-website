@@ -39,31 +39,37 @@ export const metadata: Metadata = {
 const skills = [
   {
     category: "AI & LLMs",
+    tone: "card-tone-peach",
     icon: Brain,
     items: ["OpenAI", "Groq", "Gemini", "Anthropic", "MCP"],
   },
   {
     category: "Frameworks",
+    tone: "card-tone-apricot",
     icon: Code2,
     items: ["CrewAI", "LangGraph", "LangChain", "LlamaIndex", "PydanticAI"],
   },
   {
     category: "Data & RAG",
+    tone: "card-tone-peach",
     icon: Zap,
     items: ["Pinecone", "ChromaDB", "Crawl4AI", "Hybrid Search", "Reranking"],
   },
   {
     category: "Frontend",
+    tone: "card-tone-apricot",
     icon: Server,
     items: ["React", "Next.js", "Tailwind CSS", "Streamlit", "Chainlit"],
   },
   {
     category: "Backend/Ops",
+    tone: "card-tone-peach",
     icon: Bot,
     items: ["PostgreSQL", "Supabase", "Firebase", "Docker", "Linux"],
   },
   {
     category: "Voice AI",
+    tone: "card-tone-apricot",
     icon: Mic,
     items: ["Whisper STT", "ElevenLabs TTS", "Real-time Streaming"],
   },
@@ -97,6 +103,7 @@ const experiences = [
 const projects = [
   {
     title: "Narrate-AI",
+    tone: "card-tone-peach",
     description:
       "Multiphase autonomous pipeline that converts any topic into a narrated documentary — research, script, image retrieval, and video rendering, fully automated.",
     tech: ["Python", "Groq", "Pinecone", "ElevenLabs", "OpenCLIP"],
@@ -104,6 +111,7 @@ const projects = [
   },
   {
     title: "AI Competitor Analysis Agent",
+    tone: "card-tone-apricot",
     description:
       "Parallel-crawling RAG tool that compares companies in real-time using Groq LPUs and Pinecone for near-instant competitor analysis.",
     tech: ["Python", "Firecrawl", "Groq", "Pinecone", "Streamlit"],
@@ -111,6 +119,7 @@ const projects = [
   },
   {
     title: "Agentic Employee Tracking & QA",
+    tone: "card-tone-peach",
     description:
       "GPT-4o pipeline that syncs OpenPhone call data with Monday.com and auto-audits compliance. Cut runtime ~80% with modular in-memory architecture.",
     tech: ["Python", "GPT-4o", "OpenPhone", "Monday.com"],
@@ -118,6 +127,7 @@ const projects = [
   },
   {
     title: "Automatic Voice Chatbot",
+    tone: "card-tone-apricot",
     description:
       "Real-time voice AI using Whisper STT, Gemini for reasoning, and ElevenLabs streaming TTS for low-latency spoken conversation.",
     tech: ["Python", "Whisper", "Gemini", "ElevenLabs"],
@@ -125,6 +135,7 @@ const projects = [
   },
   {
     title: "Gemini MCP Server",
+    tone: "card-tone-peach",
     description:
       "MCP server exposing Gemini API docs and code snippets to any MCP-compatible AI client. Supports remote VM deployment via SSE with token-based auth.",
     tech: ["Python", "FastMCP", "SSE"],
@@ -132,6 +143,7 @@ const projects = [
   },
   {
     title: "mem0 Memory Chatbot",
+    tone: "card-tone-apricot",
     description:
       "Chatbot with long-term memory that remembers user facts across sessions using Mem0 for persistent, personalized conversations.",
     tech: ["Python", "Mem0", "LLMs"],
@@ -208,7 +220,7 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {skills.map((skill) => (
-              <Card key={skill.category}>
+              <Card key={skill.category} className={skill.tone}>
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3">
                     <span className="flex size-10 items-center justify-center rounded-base border-2 border-border bg-main"><skill.icon className="h-5 w-5" /></span>
@@ -238,7 +250,7 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {experiences.map((exp) => (
-              <Card key={exp.company}>
+              <Card key={exp.company} className="card-tone-peach">
                 <CardHeader>
                   <div className="flex flex-wrap items-start justify-between gap-2">
                     <div>
@@ -292,7 +304,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className="h-full gap-5">
+                <Card className={`h-full gap-5 ${project.tone}`}>
                   <CardHeader>
                     <div className="mb-5 flex items-center justify-between border-b-2 border-border/20 pb-4">
                       <span className="font-heading text-xl leading-tight font-bold text-link md:text-2xl">{project.title}</span>
