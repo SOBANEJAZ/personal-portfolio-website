@@ -16,7 +16,7 @@ const SPEED = 320;
 type GameStatus = "idle" | "running" | "game-over";
 
 export function FooterRunner() {
-  const [status, setStatus] = useState<GameStatus>("idle");
+  const [status, setStatus] = useState<GameStatus>("running");
   const [obstacleIndex, setObstacleIndex] = useState(0);
 
   const arenaRef = useRef<HTMLDivElement>(null);
@@ -26,13 +26,14 @@ export function FooterRunner() {
   const arenaWidthRef = useRef(GAME_WIDTH);
   const frameRef = useRef<number | null>(null);
   const isVisibleRef = useRef(true);
+  const autoRestartTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Mutable game state held in ref for zero-re-render 60fps loop
   const stateRef = useRef({
-    status: "idle" as GameStatus,
+    status: "running" as GameStatus,
     runnerY: 0,
     velocity: 0,
-    obstacleX: GAME_WIDTH * 0.72,
+    obstacleX: GAME_WIDTH * 0.85,
     obstacleIndex: 0,
     obstacleWidth: techObstacles[0].width as number,
     obstacleHeight: techObstacles[0].height as number,
@@ -102,6 +103,12 @@ export function FooterRunner() {
       state.status = "game-over";
       setStatus("game-over");
       frameRef.current = null;
+      // Auto restart so it never stays halted or waiting
+      autoRestartTimerRef.current = setTimeout(() => {
+        if (isVisibleRef.current && !document.hidden) {
+          startGame(false);
+        }
+      }, 1200);
       return;
     }
 
@@ -116,13 +123,17 @@ export function FooterRunner() {
   const startGame = useCallback(
     (jumpImmediately = false) => {
       stopGame();
+      if (autoRestartTimerRef.current) {
+        clearTimeout(autoRestartTimerRef.current);
+        autoRestartTimerRef.current = null;
+      }
       const state = stateRef.current;
       const initialObstacle = techObstacles[state.obstacleIndex];
 
       state.status = "running";
       state.runnerY = 0;
       state.velocity = jumpImmediately ? JUMP_VELOCITY : 0;
-      state.obstacleX = Math.min(arenaWidthRef.current + 40, 750);
+      state.obstacleX = Math.max(arenaWidthRef.current + 40, 750);
       state.obstacleWidth = initialObstacle.width;
       state.obstacleHeight = initialObstacle.height;
       state.lastFrame = performance.now();
@@ -160,10 +171,6 @@ export function FooterRunner() {
 
     const measureArena = () => {
       arenaWidthRef.current = arena.clientWidth || GAME_WIDTH;
-      if (stateRef.current.status === "idle" && obstacleRef.current) {
-        stateRef.current.obstacleX = arenaWidthRef.current * 0.72;
-        obstacleRef.current.style.transform = `translate3d(${stateRef.current.obstacleX}px, 0, 0)`;
-      }
     };
     measureArena();
 
@@ -173,7 +180,18 @@ export function FooterRunner() {
     return () => resizeObserver.disconnect();
   }, []);
 
-  // IntersectionObserver: auto-pause loop when scrolled off screen
+  // Auto-start on mount
+  useEffect(() => {
+    startGame(false);
+    return () => {
+      stopGame();
+      if (autoRestartTimerRef.current) {
+        clearTimeout(autoRestartTimerRef.current);
+      }
+    };
+  }, [startGame, stopGame]);
+
+  // IntersectionObserver: auto-pause loop when scrolled off screen, auto-resume when visible
   useEffect(() => {
     const arena = arenaRef.current;
     if (!arena) return;
@@ -186,9 +204,13 @@ export function FooterRunner() {
             cancelAnimationFrame(frameRef.current);
             frameRef.current = null;
           }
-        } else if (stateRef.current.status === "running" && !frameRef.current) {
-          stateRef.current.lastFrame = performance.now();
-          frameRef.current = requestAnimationFrame(tick);
+        } else {
+          if (stateRef.current.status === "running" && !frameRef.current) {
+            stateRef.current.lastFrame = performance.now();
+            frameRef.current = requestAnimationFrame((t) => tickRef.current?.(t));
+          } else if (stateRef.current.status === "idle" || stateRef.current.status === "game-over") {
+            startGame(false);
+          }
         }
       },
       { threshold: 0.05 }
@@ -196,7 +218,7 @@ export function FooterRunner() {
 
     intersectionObserver.observe(arena);
     return () => intersectionObserver.disconnect();
-  }, [tick]);
+  }, [startGame]);
 
   // Document visibility / tab blur handling to prevent background CPU drain
   useEffect(() => {
@@ -208,7 +230,7 @@ export function FooterRunner() {
         }
       } else if (stateRef.current.status === "running" && isVisibleRef.current && !frameRef.current) {
         stateRef.current.lastFrame = performance.now();
-        frameRef.current = requestAnimationFrame(tick);
+        frameRef.current = requestAnimationFrame((t) => tickRef.current?.(t));
       }
     };
 
@@ -221,16 +243,17 @@ export function FooterRunner() {
       window.removeEventListener("blur", handleVisibility);
       window.removeEventListener("focus", handleVisibility);
       stopGame();
+      if (autoRestartTimerRef.current) {
+        clearTimeout(autoRestartTimerRef.current);
+      }
     };
-  }, [stopGame, tick]);
+  }, [stopGame]);
 
   const currentObstacle = techObstacles[obstacleIndex];
   const statusText =
     status === "running"
-      ? "RUNNING"
-      : status === "game-over"
-        ? "SYSTEM HALTED — TAP TO RESTART"
-        : "TAP, CLICK, OR PRESS SPACE TO START";
+      ? "SPACE OR TAP TO JUMP"
+      : "SYSTEM HALTED — REBOOTING...";
 
   return (
     <div className="bg-transparent text-foreground">
@@ -287,7 +310,7 @@ export function FooterRunner() {
               width: `${currentObstacle.width}px`,
               height: `${currentObstacle.height}px`,
               willChange: "transform",
-              transform: `translate3d(${GAME_WIDTH * 0.72}px, 0, 0)`,
+              transform: `translate3d(${GAME_WIDTH * 0.85}px, 0, 0)`,
             }}
           >
             {currentObstacle.sprite}
