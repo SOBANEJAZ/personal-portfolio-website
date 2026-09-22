@@ -155,8 +155,8 @@ export default function HomePage() {
     <PageLoader>
       <div className="flex flex-col">
         {/* Hero */}
-      <section className="hero-surface border-b-2 border-border">
-        <div className="mx-auto max-w-container px-5 py-14 md:px-8 lg:py-20">
+      <section className="hero-surface flex min-h-[calc(100svh-65px)] min-h-[calc(100vh-65px)] items-center border-b-2 border-border">
+        <div className="mx-auto w-full max-w-container px-5 py-10 md:px-8 lg:py-14">
           <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
             <div className="min-w-0 hero-group">
               <p className="section-kicker">Generative AI Engineer</p>
@@ -293,7 +293,7 @@ export default function HomePage() {
             </a>
               </Button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-14 md:mb-16">
             {projects.map((project) => (
               <a
                 key={project.title}
@@ -325,15 +325,15 @@ export default function HomePage() {
               </a>
             ))}
           </div>
-        </div>
-      </section>
-      <section className="mx-auto w-full max-w-container px-5 pb-20 md:px-8">
-        <div className="flex flex-col items-start justify-between gap-8 rounded-base border-2 border-border bg-main p-7 shadow-shadow md:flex-row md:items-center md:p-12">
-          <div>
-            <p className="section-kicker">Have something in mind?</p>
-            <h2 className="max-w-xl text-3xl font-bold tracking-tight md:text-4xl">Let&apos;s build something crazyy!</h2>
+
+          {/* CTA Box */}
+          <div className="flex flex-col items-start justify-between gap-8 rounded-base border-2 border-border bg-card-background p-7 shadow-shadow md:flex-row md:items-center md:p-12">
+            <div>
+              <p className="section-kicker">Have something in mind?</p>
+              <h2 className="max-w-xl text-3xl font-bold tracking-tight md:text-4xl">Let&apos;s build something crazyy!</h2>
+            </div>
+            <Button asChild variant="reverse" size="lg"><Link href="/contact">Get in touch <ArrowUpRight /></Link></Button>
           </div>
-          <Button asChild variant="reverse" size="lg"><Link href="/contact">Get in touch <ArrowUpRight /></Link></Button>
         </div>
       </section>
       </div>
