@@ -149,6 +149,10 @@ export default function ResumePage() {
               linkedin.com/in/sobanejaz
             </a>
             <span>·</span>
+            <a href="https://www.upwork.com/freelancers/~012ea3b0c7be10dac6" target="_blank" rel="noopener noreferrer" className="hover:text-link transition-colors">
+              upwork.com/freelancers/~012ea3b0c7be10dac6
+            </a>
+            <span>·</span>
             <span>Lahore, Pakistan</span>
           </div>
         </div>

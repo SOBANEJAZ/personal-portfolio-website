@@ -20,7 +20,7 @@ import {
   Server,
   Zap,
 } from "lucide-react";
-import { GithubIcon } from "@/components/icons";
+import { GithubIcon, UpworkIcon } from "@/components/icons";
 import PageLoader from "@/components/page-loader";
 import { HeroStrip } from "@/components/hero-strip";
 
@@ -176,6 +176,7 @@ export default function HomePage() {
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
                 <Link href="/resume" className="underline decoration-2 underline-offset-4 hover:text-link">View resume</Link>
                 <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 underline decoration-2 underline-offset-4 hover:text-link"><GithubIcon className="size-4" /> GitHub</a>
+                <a href="https://www.upwork.com/freelancers/~012ea3b0c7be10dac6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 underline decoration-2 underline-offset-4 hover:text-link"><UpworkIcon className="size-4" /> Upwork</a>
               </div>
             </div>
             <div className="relative mx-auto w-full max-w-[440px]">

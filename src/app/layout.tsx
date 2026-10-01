@@ -81,6 +81,7 @@ const jsonLd = {
   sameAs: [
     "https://github.com/SOBANEJAZ",
     "https://linkedin.com/in/sobanejaz",
+    "https://www.upwork.com/freelancers/~012ea3b0c7be10dac6",
   ],
   knowsAbout: [
     "Generative AI",

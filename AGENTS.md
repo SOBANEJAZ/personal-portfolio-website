@@ -17,7 +17,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 - **App Router** — all pages in `src/app/`, each route is a folder with `page.tsx`
 - **Components** — `src/components/ui/` holds neobrutalism-styled shadcn/ui components; `src/components/` has layout pieces (navbar, footer, icons)
 - **Styling** — neobrutalism theme in `src/app/globals.css` using Tailwind v4 `@theme inline` with CSS variables; do not mix in default shadcn theme tokens
-- **Icons** — GitHub and LinkedIn use custom SVGs in `src/components/icons.tsx` (lucide-react does not include brand icons)
+- **Icons** — GitHub, LinkedIn, and Upwork use custom SVGs in `src/components/icons.tsx` (lucide-react does not include brand icons)
 - **Blog** — markdown files in `content/blog/` parsed by `src/lib/blog.ts` (gray-matter + remark); dynamic route at `src/app/blog/[slug]/page.tsx`
 - **Contact** — EmailJS integration in `src/app/contact/page.tsx`; credentials hardcoded (service_7fbz55d / template_f3ja5xt)
 - **Loading** — `src/components/loading-screen.tsx` + `page-loader.tsx` wrap homepage content; blocks until critical images load

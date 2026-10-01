@@ -54,8 +54,8 @@ export function Navbar() {
                 variant="reverse"
                 size="sm"
               >
-            <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
-                 GitHub <ExternalLink className="ml-1 h-3 w-3" />
+            <a href="https://www.upwork.com/freelancers/~012ea3b0c7be10dac6" target="_blank" rel="noopener noreferrer">
+                 Upwork <ExternalLink className="ml-1 h-3 w-3" />
             </a>
                </Button>
           </li>
@@ -104,8 +104,8 @@ export function Navbar() {
             ))}
             <li>
                 <Button asChild variant="reverse" className="w-full min-h-[44px]">
-              <a href="https://github.com/SOBANEJAZ" target="_blank" rel="noopener noreferrer">
-                  GitHub <ExternalLink className="ml-1 h-3 w-3" />
+              <a href="https://www.upwork.com/freelancers/~012ea3b0c7be10dac6" target="_blank" rel="noopener noreferrer">
+                  Upwork <ExternalLink className="ml-1 h-3 w-3" />
               </a>
                 </Button>
             </li>

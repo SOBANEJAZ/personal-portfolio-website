@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Send, Loader2 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/icons";
+import { GithubIcon, LinkedinIcon, UpworkIcon } from "@/components/icons";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 
@@ -123,6 +123,27 @@ export default function ContactPage() {
                   <p className="font-heading font-bold text-sm">GitHub</p>
                   <p className="text-sm text-foreground/75 group-hover:text-link transition-colors">
                     github.com/SOBANEJAZ
+                  </p>
+                </div>
+              </a>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <a
+                href="https://www.upwork.com/freelancers/~012ea3b0c7be10dac6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-base border-2 border-border bg-main">
+                  <UpworkIcon className="h-5 w-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-heading font-bold text-sm">Upwork</p>
+                  <p className="text-sm text-foreground/75 group-hover:text-link transition-colors">
+                    Soban Ejaz on Upwork
                   </p>
                 </div>
               </a>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { GithubIcon, LinkedinIcon } from "@/components/icons";
+import { GithubIcon, LinkedinIcon, UpworkIcon } from "@/components/icons";
 import { Mail } from "lucide-react";
 import { FooterRunner } from "@/components/footer-runner";
 
@@ -22,6 +22,11 @@ export function Footer() {
               <Button asChild variant="noShadow" size="icon" className="min-h-[44px] min-w-[44px]">
             <a aria-label="LinkedIn" href="https://linkedin.com/in/sobanejaz" target="_blank" rel="noopener noreferrer">
                 <LinkedinIcon className="h-5 w-5" />
+            </a>
+              </Button>
+              <Button asChild variant="noShadow" size="icon" className="min-h-[44px] min-w-[44px]">
+            <a aria-label="Upwork" href="https://www.upwork.com/freelancers/~012ea3b0c7be10dac6" target="_blank" rel="noopener noreferrer">
+                <UpworkIcon className="h-5 w-5" />
             </a>
               </Button>
               <Button asChild variant="noShadow" size="icon" className="min-h-[44px] min-w-[44px]">
